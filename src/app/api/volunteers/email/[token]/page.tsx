@@ -16,6 +16,7 @@ export default async function Page({
   const res = await fetch("http://localhost:3000/api/volunteers/data", {
     method: "POST",
     body,
+    cache: "no-store",
   });
 
   // TODO: jeuj this up a good bit to not look janky.

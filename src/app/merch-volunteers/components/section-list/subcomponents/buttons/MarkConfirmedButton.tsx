@@ -15,13 +15,15 @@ export const MarkConfirmedButton = (props: {
   const refetch = useContext(FetchContext);
 
   const handleClick = async () => {
-    console.log("click!");
-
     // TODO: factor out a markConfirmed(entry) method that can be called by other components
     const updatedValue = !entry.confirmed;
     const body = JSON.stringify({ ...entry, confirmed: updatedValue });
 
-    const res = await fetch("/api/volunteers/data", { method: "PUT", body });
+    const res = await fetch("/api/volunteers/data", {
+      method: "PUT",
+      body,
+      cache: "no-store",
+    });
     const data = await res.json();
 
     refetch();

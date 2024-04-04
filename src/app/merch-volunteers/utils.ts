@@ -23,8 +23,12 @@ export const formatSubmissionEntry = (entry: Record<string, string>) => {
   const venue = split.slice(stateIndex).join(" ").trim();
 
   const confirmed =
-    entry[ValidSpreadsheetKeys.confirmed] === "TRUE" ? true : false;
-  const plusOne = entry[ValidSpreadsheetKeys.plusOne].includes("Yes")
+    entry[ValidSpreadsheetKeys.CONFIRMED] === "TRUE" ? true : false;
+
+  const acknowledged =
+    entry[ValidSpreadsheetKeys.ACKNOWLEDGED] === "TRUE" ? true : false;
+
+  const plusOne = entry[ValidSpreadsheetKeys.PLUS_ONE].includes("Yes")
     ? true
     : false;
 
@@ -41,6 +45,7 @@ export const formatSubmissionEntry = (entry: Record<string, string>) => {
     plusOne,
     comments: entry["Additional Questions or Comments"],
     confirmed,
+    acknowledged,
   };
 
   return formatted;

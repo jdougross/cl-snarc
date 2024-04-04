@@ -1,24 +1,23 @@
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
 import jwt from "jsonwebtoken";
+import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import {
+  getDetailsUrl,
+  getPointOfContact,
+  getTourManagerEmail,
+} from "../../../../../config";
 
-const pointOfContact = {
-  indirectPronoun: "them",
-  name: "TJ Young",
-  phone: "(608) 217-4307",
-  position: "The band's Sound Engineer",
-};
-
-const emailTM = `CarbonLeafTM@gmail.com`;
-const detailsUrl = `www.carbonleaf.com/volunteer-details`;
+const pointOfContact = getPointOfContact();
+const emailTM = getTourManagerEmail();
+const detailsUrl = getDetailsUrl();
 
 const jwtKey = process.env.CONFIRMATION_PRIVATE_KEY || "";
 
 const generateTokenUrl = (entry: FormSubmissionEntry) => {
   const { email, date } = entry;
-  const base = "http://localhost:3000/api/volunteers/email";
+  const baseUrl = process.env.CONFIRMATION_LISTENER_BASE_URL;
 
   const token = jwt.sign({ email, date }, jwtKey);
-  return `${base}/${token}`;
+  return `${baseUrl}/${token}`;
 };
 
 const generateMessage = (entry: FormSubmissionEntry) => {
@@ -35,7 +34,7 @@ const generateMessage = (entry: FormSubmissionEntry) => {
   <p>Thank you for volunteering for Merchandise for the Carbon Leaf show on ${date} at ${venue}!  You have been confirmed.
   </p>
 
-  <p>Please take a moment and <a href=${webhookUrl}>click here</a> to let us know you've gotten this message.
+  <p>Please take a moment and <a href=${webhookUrl}>click here</a> - that'll let us know you've gotten this message.
   </p>
 
   <p>Your name (with a +1 if you can bring a helper) will be on the band’s guest list at the box office.  You also get a merch item each, so don’t forget to grab it before the night is over!

@@ -32,6 +32,7 @@ export const parseSheetsRowsWithHeaders = ({
   return result;
 };
 
+// some dates show as MM/DD/YYYY vs YYYY-MM-DD
 const compareDateStrings = (a: string, b: string) => {
   const x = new Date(a);
   const y = new Date(b);
@@ -39,6 +40,7 @@ const compareDateStrings = (a: string, b: string) => {
   return x.toISOString().split("T")[0] == y.toISOString().split("T")[0];
 };
 
+// Check to modify only the intended range
 const compareValueToTargetByHeaders = (
   value: string[],
   target: FormSubmissionEntry,
@@ -46,9 +48,9 @@ const compareValueToTargetByHeaders = (
 ) => {
   const { date } = target;
 
-  const emailIndex = headers.indexOf(ValidSpreadsheetKeys.email);
-  const dateCityIndex = headers.indexOf(ValidSpreadsheetKeys.dateCity);
-  const submittedIndex = headers.indexOf(ValidSpreadsheetKeys.submitted);
+  const emailIndex = headers.indexOf(ValidSpreadsheetKeys.EMAIL);
+  const dateCityIndex = headers.indexOf(ValidSpreadsheetKeys.DATE_CITY);
+  const submittedIndex = headers.indexOf(ValidSpreadsheetKeys.SUBMITTED);
 
   const dateCityDate = value[dateCityIndex].split(" ")[0];
 
@@ -60,17 +62,16 @@ const compareValueToTargetByHeaders = (
   );
 };
 
-export const findRangeOfEntryConfirmedCell = ({
-  entry,
-  ValueRange,
-}: {
+export const findRangeOfCellByHeader = (params: {
   entry: FormSubmissionEntry;
-  ValueRange: sheets_v4.Schema$ValueRange;
+  header: ValidSpreadsheetKeys;
+  valueRange: sheets_v4.Schema$ValueRange;
 }) => {
-  const { range, values } = ValueRange;
+  const { entry, header, valueRange } = params;
+
+  const { range, values } = valueRange;
 
   if (!values || values.length < 2 || typeof range != "string") {
-    console.log(values);
     throw new Error("Invalid values returned from storage");
   }
 
@@ -97,58 +98,7 @@ export const findRangeOfEntryConfirmedCell = ({
    * adding 1 to row and col in order to access correct spreadsheet cell
    */
   const confirmedRow = 1 + rowIndex;
-  const confirmedColumn = String.fromCharCode(
-    1 + 64 + headers.indexOf(ValidSpreadsheetKeys.confirmed),
-  );
-  const sheet = range.match(`^[a-zA-Z0-9]+`)?.toString();
-
-  return `${sheet}!${confirmedColumn}${confirmedRow}`;
-};
-
-// TODO: make this one function with the above, passing in the ValidSpreadsheetKey param
-export const findRangeOfEntryAcknowledgedCell = ({
-  entry,
-  ValueRange,
-}: {
-  entry: FormSubmissionEntry;
-  ValueRange: sheets_v4.Schema$ValueRange;
-}) => {
-  const { range, values } = ValueRange;
-
-  console.log(JSON.stringify(entry));
-
-  if (!values || values.length < 2 || typeof range != "string") {
-    console.log(values);
-    throw new Error("Invalid values returned from storage");
-  }
-
-  if (values.some((row) => row.length > values[0].length)) {
-    throw new Error("Header row of different length than value rows");
-  }
-
-  if (!range.includes("!A1:")) {
-    throw new Error("Range of data does not begin at expected location");
-  }
-
-  const headers = values[0];
-
-  const rowIndex = values.findIndex((value) =>
-    compareValueToTargetByHeaders(value, entry, headers),
-  );
-
-  if (!rowIndex || rowIndex === -1) {
-    // console.log(JSON.stringify(values, null, 2))
-    throw new Error("Could not find index in storage to update value");
-  }
-
-  /*
-   * Google Sheets UI has no 0 row, but data involves 0 index.
-   * adding 1 to row and col in order to access correct spreadsheet cell
-   */
-  const confirmedRow = 1 + rowIndex;
-  const confirmedColumn = String.fromCharCode(
-    1 + 64 + headers.indexOf(ValidSpreadsheetKeys.acknowledged),
-  );
+  const confirmedColumn = String.fromCharCode(1 + 64 + headers.indexOf(header));
   const sheet = range.match(`^[a-zA-Z0-9]+`)?.toString();
 
   return `${sheet}!${confirmedColumn}${confirmedRow}`;
