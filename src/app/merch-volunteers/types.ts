@@ -28,14 +28,14 @@ export interface FormSubmissionEntry {
 }
 
 export enum ValidSpreadsheetKeys {
-  submitted = "Submitted On",
-  dateCity = "Date  City",
-  name = "Name",
-  phone = "Phone",
-  email = "Email Address",
-  skills = "Special Skills",
-  plusOne = "Can you bring a 1",
-  comments = "Additional Questions or Comments",
-  confirmed = "Confirmed?",
-  acknowledged = "Acknowledged Email",
+  SUBMITTED = "Submitted On",
+  DATE_CITY = "Date  City",
+  NAME = "Name",
+  PHONE = "Phone",
+  EMAIL = "Email Address",
+  SKILLS = "Special Skills",
+  PLUS_ONE = "Can you bring a 1",
+  COMMENTS = "Additional Questions or Comments",
+  CONFIRMED = "Confirmed?",
+  ACKNOWLEDGED = "Acknowledged Email",
 }

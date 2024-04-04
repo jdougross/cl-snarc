@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateConfirmationEmail } from "./generateConfirmationEmail";
+import { generateConfirmationEmail } from "./utils";
 import nodemailer from "nodemailer";
 
 export async function POST(request: Request) {
@@ -7,8 +7,6 @@ export async function POST(request: Request) {
   // validate email address?
 
   const entry = await request.json();
-
-  // return NextResponse.json(entry)
 
   const user = process.env.GOOGLE_APP_EMAIL;
   const pass = process.env.GOOGLE_APP_PASS;

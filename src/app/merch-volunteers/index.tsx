@@ -42,7 +42,11 @@ const EmailModal = (props: {
     // refetch the data set
     const body = JSON.stringify(entry);
 
-    const res = await fetch("/api/volunteers/email", { method: "POST", body });
+    const res = await fetch("/api/volunteers/email", {
+      method: "POST",
+      body,
+      cache: "no-store",
+    });
     const data = await res.json();
 
     // TODO: if successful, make another request to mark confirmed? Or just handle in backend?
@@ -141,7 +145,7 @@ export const MerchVolunteers = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const getVolunteerData = () => {
-    fetch("/api/volunteers/data")
+    fetch("/api/volunteers/data", { cache: "no-store" })
       .then((res) => res.json())
       .then(({ data }) => {
         setData(data);

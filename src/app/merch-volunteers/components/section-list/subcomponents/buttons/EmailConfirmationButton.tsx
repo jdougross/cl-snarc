@@ -14,7 +14,6 @@ export const EmailConfirmationButton = (props: {
   const setModalEntry = useContext(ContactContext);
 
   const handleClick = () => {
-    console.log("click!");
     setModalEntry(entry);
   };
 

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Airtable, { FieldSet, Record } from "airtable";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
-import { formatGuestListSellerLine } from "./util";
+import { formatGuestListSellerLine } from "./utils";
 
 /*
   get airtable entry BY DATE

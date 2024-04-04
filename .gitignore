@@ -22,6 +22,7 @@
 .env
 credentials.json
 service_account.json
+config.ts
 
 # debug
 npm-debug.log*
