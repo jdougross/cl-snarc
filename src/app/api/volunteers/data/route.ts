@@ -3,7 +3,7 @@ import * as FormSubmissions from "@/app/api/formSubmissions/formSubmissions";
 
 export async function GET() {
   try {
-    const data = FormSubmissions.getAllVolunteerSubmissions();
+    const data = await FormSubmissions.getAllVolunteerSubmissions();
     return NextResponse.json({ data }, { status: 200 });
   } catch (err) {
     return NextResponse.json(
