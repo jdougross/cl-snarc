@@ -21,10 +21,10 @@ const jwtKey = process.env.CONFIRMATION_PRIVATE_KEY || "";
 
 const generateTokenUrl = (entry: FormSubmissionEntry) => {
   const { email, date } = entry;
-  const baseUrl = process.env.CONFIRMATION_LISTENER_BASE_URL;
+  const url = `${process.env.BASE_URL}/${process.env.CONFIRMATION_LISTENER_BASE_URL}`;
 
   const token = jwt.sign({ email, date }, jwtKey);
-  return `${baseUrl}/${token}`;
+  return `${url}/${token}`;
 };
 
 const generateMessage = (entry: FormSubmissionEntry) => {
