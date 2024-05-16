@@ -4,11 +4,17 @@ import {
   ValidSpreadsheetKeys,
 } from "@/app/merch-volunteers/types";
 import { findRangeOfCellByHeader, parseSheetsRowsWithHeaders } from "./utils";
+import { keyFile } from "../../../../keyFile";
 
 const scopes = ["https://spreadsheets.google.com/feeds/"];
 
+// export const auth = new google.auth.GoogleAuth({
+//   keyFile: process.cwd() + "/service_account.json",
+//   scopes,
+// });
+
 export const auth = new google.auth.GoogleAuth({
-  keyFile: process.cwd() + "/service_account.json",
+  keyFile: JSON.stringify(keyFile),
   scopes,
 });
 
