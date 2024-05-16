@@ -14,7 +14,7 @@ const scopes = ["https://spreadsheets.google.com/feeds/"];
 // });
 
 export const auth = new google.auth.GoogleAuth({
-  keyFile: JSON.stringify(keyFile),
+  credentials: keyFile,
   scopes,
 });
 
