@@ -62,6 +62,7 @@ export const markEntryAcknowledged = async (entry: FormSubmissionEntry) => {
   try {
     const sheetsResponse = await getAllRows();
 
+    // console.log({ sheetsResponse })
     const range = findRangeOfCellByHeader({
       entry,
       header: ValidSpreadsheetKeys.ACKNOWLEDGED,
@@ -80,6 +81,8 @@ export const markEntryAcknowledged = async (entry: FormSubmissionEntry) => {
 
     return Promise.resolve(updateResponse.data);
   } catch (err) {
+    // console.log({ err })
+
     return Promise.reject(err);
   }
 };

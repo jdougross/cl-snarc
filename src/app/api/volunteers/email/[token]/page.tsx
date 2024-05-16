@@ -19,6 +19,7 @@ export default async function Page({
     cache: "no-store",
   });
 
+  console.log({ email, date, body, res });
   // TODO: jeuj this up a good bit to not look janky.
   return (
     <div>
