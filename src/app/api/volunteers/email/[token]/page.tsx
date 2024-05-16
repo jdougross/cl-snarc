@@ -13,7 +13,7 @@ export default async function Page({
   const date = (decoded.date as string) || "";
   const body = JSON.stringify({ date, email });
 
-  const res = await fetch("http://localhost:3000/api/volunteers/data", {
+  const res = await fetch(`${process.env.BASE_URL}/api/volunteers/data`, {
     method: "POST",
     body,
     cache: "no-store",
