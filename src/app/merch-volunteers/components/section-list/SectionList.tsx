@@ -74,9 +74,10 @@ export const SectionList = (props: {
           /> */}
         <Button
           onClick={() => setHidePastDates(!hidePastDates)}
-          children={hidePastDates ? "Show Past Dates" : "Hide Past Dates"}
           {...buttonProps}
-        />
+        >
+          {hidePastDates ? "Show Past Dates" : "Hide Past Dates"}
+        </Button>
       </Flex>
       <SectionsAccordion
         // accordionProps={{ allAccordionsCollapsed, setAllAccordionsCollapsed, defaultIndex: allAccordionsOpen }}
