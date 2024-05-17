@@ -1,9 +1,9 @@
-import { useToast } from "@chakra-ui/react";
 import { FormSubmissionEntry } from "../../types";
 
-export const sendConfirmationEmail = async (entry: FormSubmissionEntry) => {
-  const toast = useToast();
-
+export const sendConfirmationEmail = async (
+  entry: FormSubmissionEntry,
+  toast: ({}: Record<string, string | number>) => void,
+) => {
   // confirmed will always be TRUE on this path
   const body = JSON.stringify({ ...entry, confirmed: true });
 
