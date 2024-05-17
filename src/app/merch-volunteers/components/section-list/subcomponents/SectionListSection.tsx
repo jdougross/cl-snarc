@@ -5,7 +5,6 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from "@chakra-ui/react";
-
 import { theme } from "../../../theme";
 import { SectionHeader } from "./SectionHeader";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";

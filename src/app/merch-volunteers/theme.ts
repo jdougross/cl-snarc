@@ -1,12 +1,29 @@
+const color = {
+  blue: {
+    light: "#DEF",
+    dark: "#26A",
+    light_contrast: "#DAA",
+    dark_contrast: "##844",
+  },
+  green: {
+    light: "#BDC",
+    dark: "#064",
+    light_contrast: "#DAA",
+    dark_contrast: "##844",
+  },
+};
+
+const themeColor = color.green;
+
 export const theme = {
   light: {
     colors: {
       background: "#FFF",
-      borders: "#000",
+      borders: "#222",
       text: "#000",
-      positive: "#8D8",
-      negative: "#733",
-      offBackground: "#BBB",
+      positive: themeColor.light,
+      negative: "#DAA",
+      offBackground: "#EEE",
     },
   },
   dark: {
@@ -23,9 +40,11 @@ export const theme = {
 
 export const buttonProps = {
   borderWidth: "1px",
-  borderColor: "#EEE",
+  borderColor: "#000",
   borderRadius: "0.5rem",
-  backgroundColor: "#EEE",
-  padding: "0.5rem",
+  backgroundColor: themeColor.dark,
+  textColor: "#FFF",
+  padding: "1rem",
   margin: "0.5rem",
+  minWidth: "12rem",
 };
