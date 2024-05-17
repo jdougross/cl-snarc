@@ -48,3 +48,15 @@ export const buttonProps = {
   margin: "0.5rem",
   minWidth: "12rem",
 };
+
+export const darkButtonProps = {
+  ...buttonProps,
+  backgroundColor: themeColor.dark,
+  textColor: theme.dark.colors.text,
+};
+
+export const lightButtonProps = {
+  ...buttonProps,
+  backgroundColor: themeColor.light,
+  textColor: theme.light.colors.text,
+};

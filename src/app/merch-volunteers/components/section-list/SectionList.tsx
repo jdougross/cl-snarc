@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Flex, Button } from "@chakra-ui/react";
-import { buttonProps } from "../../theme";
+import { lightButtonProps } from "../../theme";
 import { shouldDisplaySection, sortSectionsByDate } from "./utils";
 import { SectionsAccordion } from "./subcomponents/SectionsAccordion";
 import { FormSubmissionEntry } from "../../types";
@@ -36,7 +36,7 @@ export const SectionList = (props: {
       <Flex flexDirection="row">
         <Button
           onClick={() => setHidePastDates(!hidePastDates)}
-          {...buttonProps}
+          {...lightButtonProps}
         >
           {hidePastDates ? "Show Past Dates" : "Hide Past Dates"}
         </Button>

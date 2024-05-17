@@ -12,6 +12,8 @@ import {
 } from "@chakra-ui/react";
 import { FormSubmissionEntry } from "../../types";
 import { sendConfirmationEmail } from "./sendConfiirmationEmail";
+import { buttonProps, theme } from "../../theme";
+import { InfoBox } from "./subcomponents/InfoBox";
 
 export const EmailModal = (props: {
   entry: FormSubmissionEntry;
@@ -21,12 +23,6 @@ export const EmailModal = (props: {
   const { entry, isOpen, onClose } = props;
   const toast = useToast();
 
-  // TODO: theme this somewhere else
-  const pmx = {
-    p: "10px",
-    m: "10px",
-  };
-
   const handleClick = async () => {
     await sendConfirmationEmail(entry, (args) => toast(args));
     onClose();
@@ -35,9 +31,8 @@ export const EmailModal = (props: {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay backdropFilter="blur(10px)" />
-      <Flex alignItems={"center"} justifyContent={"center"}>
+      <Flex>
         <ModalContent
-          textColor="#000"
           alignSelf="center"
           minWidth="fit-content"
           height="fit-content"
@@ -46,6 +41,7 @@ export const EmailModal = (props: {
             flexDirection={"column"}
             alignItems="center"
             justifyContent="center"
+            p="1rem"
           >
             <ModalHeader>Send Confirmation Email?</ModalHeader>
             <ModalBody>
@@ -58,53 +54,29 @@ export const EmailModal = (props: {
                     alignItems={"center"}
                     justifyContent={"space-between"}
                   >
-                    <Flex
-                      flexDirection={"row"}
-                      alignItems={"center"}
-                      justifyContent={"space-between"}
-                    >
-                      <Flex
-                        flexDirection={"column"}
-                        alignItems={"center"}
-                        justifyContent={"center"}
-                        backgroundColor="#EEE"
-                        {...pmx}
-                      >
-                        <Text>{entry.date}</Text>
-                        <Text>{entry.city}</Text>
-                        <Text>{entry.venue}</Text>
-                      </Flex>
-                      <Spacer />
-                      <Flex
-                        flexDirection={"column"}
-                        alignItems={"center"}
-                        justifyContent={"center"}
-                        backgroundColor="#EEE"
-                        {...pmx}
-                      >
-                        <Text>{entry.name}</Text>
-                        <Text>{entry.email}</Text>
-                        <Text>{entry.phone}</Text>
-                      </Flex>
+                    <Flex>
+                      <InfoBox
+                        rows={[entry.date, entry.city, entry.venue]}
+                        header={`Show:`}
+                      />
+                      <InfoBox
+                        rows={[entry.name, entry.email, entry.phone]}
+                        header={`Volunteer:`}
+                      />
+                      <InfoBox rows={["TJ"]} header={`Tour Contact:`} />
                     </Flex>
-                    <Flex
-                      flexDirection={"row"}
-                      alignItems={"center"}
-                      justifyContent={"space-between"}
-                      {...pmx}
-                    >
-                      <Button onClick={handleClick} {...pmx}>
-                        <Text>Send Confirmation</Text>
+                    <Flex marginTop="1rem">
+                      <Button onClick={handleClick} {...buttonProps}>
+                        {"Send Confirmation"}
                       </Button>
-                      <Button onClick={onClose} {...pmx}>
-                        <Text>Cancel</Text>
+                      <Button onClick={onClose} {...buttonProps}>
+                        {"Cancel"}
                       </Button>
                     </Flex>
                   </Flex>
                 </>
               )}
             </ModalBody>
-
             <ModalFooter />
           </Flex>
         </ModalContent>

@@ -1,7 +1,11 @@
 "use client";
 
 import { Button, Text } from "@chakra-ui/react";
-import { buttonProps } from "../../../../theme";
+import {
+  buttonProps,
+  darkButtonProps,
+  lightButtonProps,
+} from "../../../../theme";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
 import { useContext } from "react";
 import { FetchContext } from "@/app/merch-volunteers";
@@ -29,8 +33,10 @@ export const MarkConfirmedButton = (props: {
     refetch();
   };
 
+  const buttonStyle = entry.confirmed ? lightButtonProps : darkButtonProps;
+
   return (
-    <Button p="5%" disabled={!active} onClick={handleClick} {...buttonProps}>
+    <Button p="5%" disabled={!active} onClick={handleClick} {...buttonStyle}>
       <Text>{entry.confirmed ? "Unmark Confirmed" : "Mark Confirmed"}</Text>
     </Button>
   );

@@ -20,7 +20,6 @@ export const SectionListSection = (props: {
     <AccordionItem
       key={section.dateCity}
       backgroundColor={colors.offBackground}
-      m="1%"
     >
       <AccordionButton>
         <SectionHeader entries={entries} section={section} />
