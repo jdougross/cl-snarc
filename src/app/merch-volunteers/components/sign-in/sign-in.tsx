@@ -1,5 +1,6 @@
 import { signIn } from "@/app/auth";
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Flex, Img } from "@chakra-ui/react";
+import { buttonProps } from "../../theme";
 
 export function SignIn() {
   return (
@@ -16,7 +17,7 @@ export function SignIn() {
         px="8rem"
         py="2rem"
       >
-        <Button type="submit" alignSelf="flex-end">
+        <Button type="submit" alignSelf="flex-end" {...buttonProps}>
           Sign In with Google
         </Button>
       </Flex>

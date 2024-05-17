@@ -31,7 +31,7 @@ export const MarkConfirmedButton = (props: {
 
   return (
     <Button p="5%" disabled={!active} onClick={handleClick} {...buttonProps}>
-      <Text>{entry.confirmed ? "Unconfirm" : "Confirm"}</Text>
+      <Text>{entry.confirmed ? "Unmark Confirmed" : "Mark Confirmed"}</Text>
     </Button>
   );
 };
