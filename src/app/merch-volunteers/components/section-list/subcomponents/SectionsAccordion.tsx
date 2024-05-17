@@ -24,6 +24,16 @@ export const SectionsAccordion = (props: {
       {sectionsToDisplay.map((sectionKey) => {
         const { section, entries } = sectionListData[sectionKey];
 
+        const emails = new Set();
+        entries.forEach((e) => {
+          let isDuplicate = false;
+          if (emails.has(e.email)) {
+            isDuplicate = true;
+          }
+          emails.add(e.email);
+          Object.assign(e, { isDuplicate });
+        });
+
         return (
           <AccordionItem
             key={section.dateCity}
@@ -35,9 +45,17 @@ export const SectionsAccordion = (props: {
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel>
-              {entries.map((entry) => (
-                <FormSubmissionCard entry={entry} key={JSON.stringify(entry)} />
-              ))}
+              {entries.map((entry) => {
+                const isDuplicate = true;
+
+                return (
+                  <FormSubmissionCard
+                    entry={entry}
+                    isDuplicate={!!entry?.isDuplicate}
+                    key={JSON.stringify(entry)}
+                  />
+                );
+              })}
             </AccordionPanel>
           </AccordionItem>
         );

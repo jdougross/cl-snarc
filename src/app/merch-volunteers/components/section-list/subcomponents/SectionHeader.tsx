@@ -17,10 +17,20 @@ export const SectionHeader = (props: {
       ? section.venue.slice(0, 21) + "..."
       : section.venue;
 
-  const confirmedVolunteerCount = entries.reduce(
-    (acc, cur) => (acc += cur.confirmed ? (cur.plusOne ? 2 : 1) : 0),
-    0,
-  );
+  const uniqueEmails = new Set();
+  const confirmedVolunteerCount = entries.reduce((acc, cur) => {
+    // don't re-count duplicate submissions as extra volunteers
+    if (uniqueEmails.has(cur.email)) {
+      return acc;
+    }
+    uniqueEmails.add(cur.email);
+
+    if (!cur.confirmed) {
+      return acc;
+    }
+
+    return acc + (cur.plusOne ? 2 : 1);
+  }, 0);
 
   return (
     <Flex

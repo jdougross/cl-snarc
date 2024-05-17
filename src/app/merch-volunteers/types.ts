@@ -25,6 +25,7 @@ export interface FormSubmissionEntry {
   comments: string;
   confirmed: boolean;
   acknowledged: boolean;
+  isDuplicate?: boolean;
 }
 
 export enum ValidSpreadsheetKeys {
