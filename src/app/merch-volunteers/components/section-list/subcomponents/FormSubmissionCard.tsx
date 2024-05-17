@@ -1,8 +1,10 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Icon, Text } from "@chakra-ui/react";
 import { EmailConfirmationButton } from "./buttons/EmailConfirmationButton";
-import { theme } from "../../../theme";
+import { lightButtonProps, theme } from "../../../theme";
 import { MarkConfirmedButton } from "./buttons/MarkConfirmedButton";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { CheckCircleIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
+import { AcknowledgedReceipt } from "./AcknowledgedReceipt";
 
 // TODO: add unconfirm / cancel volunteer option
 
@@ -63,8 +65,11 @@ export const FormSubmissionCard = (props: {
       >
         {!isDuplicate && (
           <>
+            <AcknowledgedReceipt status={entry.acknowledged} />
+            {!entry.acknowledged && (
+              <EmailConfirmationButton active={!true} entry={entry} />
+            )}
             <MarkConfirmedButton active={false} entry={entry} />
-            <EmailConfirmationButton active={false} entry={entry} />
           </>
         )}
       </Flex>

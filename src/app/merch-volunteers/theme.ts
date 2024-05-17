@@ -31,7 +31,7 @@ export const theme = {
       background: "#000",
       borders: "#FFF",
       text: "#FFF",
-      positive: "#373",
+      positive: "#064",
       negative: "#733",
       offBackground: "#333",
     },
@@ -46,7 +46,8 @@ export const buttonProps = {
   textColor: "#FFF",
   padding: "1rem",
   margin: "0.5rem",
-  minWidth: "12rem",
+  minWidth: "15rem",
+  height: "2.5rem",
 };
 
 export const darkButtonProps = {

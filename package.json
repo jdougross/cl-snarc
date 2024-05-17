@@ -10,6 +10,7 @@
     "format": "prettier ./src --write"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
     "@google-cloud/local-auth": "^3.0.1",
     "airtable": "^0.12.2",
