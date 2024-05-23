@@ -41,7 +41,7 @@ export const sendConfirmationEmail = async (
   }
 
   try {
-    const checkboxResponse = await fetch("/api/volunteers/data", {
+    const checkboxResponse = await fetch("/api/volunteers/data/confirm", {
       method: "PUT",
       body,
       cache: "no-store",

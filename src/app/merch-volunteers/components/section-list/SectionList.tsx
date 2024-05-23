@@ -21,8 +21,6 @@ export const SectionList = (props: {
     sortSectionsByDate(a, b),
   );
 
-  console.log(Object.keys(sectionListData));
-
   const sectionsToDisplay = sectionsInOrder.filter((sectionKey) => {
     const { section, entries } = sectionListData[sectionKey];
     const rules = {

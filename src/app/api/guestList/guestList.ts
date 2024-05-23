@@ -76,8 +76,8 @@ const getRecordByShowDate = async (showDate: string) => {
     const formattedDate = formatDate(showDate);
     const res = await base(baseName)
       .select({
-        // 'advancing view will filter out past dates, may not be necessary'
-        view: "advancing view",
+        // NOTE: entering a view param will prevent finding past / hidden dates
+        // view: "advancing view",
         filterByFormula: `DATESTR({${Fields.DATE}}) = '${formattedDate}'`,
       })
       .firstPage();
@@ -136,11 +136,12 @@ export const removeMerchSeller = async (entry: FormSubmissionEntry) => {
     const { date, name } = entry;
 
     const record = await getRecordByShowDate(date);
+
     const guestList = parseGuestListFromRecord(record);
     const filteredList = guestList.filter((line) => !line.includes(name));
 
     if (filteredList.length === guestList.length) {
-      Promise.resolve();
+      Promise.resolve("Guest not present on guest list for this show");
     } else {
       const newList = filteredList.join("\n");
       const fieldsToUpdate = {
@@ -156,6 +157,6 @@ export const removeMerchSeller = async (entry: FormSubmissionEntry) => {
       return Promise.resolve(updatedGuestList);
     }
   } catch (err) {
-    return Promise.reject();
+    return Promise.reject(err);
   }
 };

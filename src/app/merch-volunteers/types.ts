@@ -9,6 +9,7 @@ export interface RawFormSubmissionEntry {
   "Additional Questions or Comments": string;
   "Confirmed?": string;
   "Acknowledged Email": boolean;
+  "Canceled At"?: string;
 }
 
 // TODO: do some of these params need to be optional based on routes we use?
@@ -26,6 +27,7 @@ export interface FormSubmissionEntry {
   confirmed: boolean;
   acknowledged: boolean;
   isDuplicate?: boolean;
+  canceled?: string;
 }
 
 export enum ValidSpreadsheetKeys {
@@ -39,4 +41,5 @@ export enum ValidSpreadsheetKeys {
   COMMENTS = "Additional Questions or Comments",
   CONFIRMED = "Confirmed?",
   ACKNOWLEDGED = "Acknowledged Email",
+  CANCELED = "Canceled At",
 }

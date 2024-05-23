@@ -23,7 +23,7 @@ export const MarkConfirmedButton = (props: {
     const updatedValue = !entry.confirmed;
     const body = JSON.stringify({ ...entry, confirmed: updatedValue });
 
-    const res = await fetch("/api/volunteers/data", {
+    const res = await fetch("/api/volunteers/data/confirm", {
       method: "PUT",
       body,
       cache: "no-store",

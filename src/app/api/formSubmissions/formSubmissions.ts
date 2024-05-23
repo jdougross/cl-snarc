@@ -24,7 +24,7 @@ const spreadsheetId = process.env.STORAGE_ITEM_ID;
 export const getAllRows = async () => {
   return await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: "current!A:J",
+    range: "current!A:K",
   });
 };
 
@@ -89,6 +89,35 @@ export const markEntryAcknowledged = async (entry: FormSubmissionEntry) => {
   } catch (err) {
     // console.log({ err })
 
+    return Promise.reject(err);
+  }
+};
+
+export const markEntryCanceled = async (entry: FormSubmissionEntry) => {
+  const timeStamp = new Date().toISOString();
+  // TODO: include id of admin making this cancellation?
+
+  try {
+    const sheetsResponse = await getAllRows();
+
+    const range = findRangeOfCellByHeader({
+      entry,
+      header: ValidSpreadsheetKeys.CANCELED,
+      valueRange: sheetsResponse.data,
+    });
+
+    const updateResponse = await sheets.spreadsheets.values.update({
+      includeValuesInResponse: true,
+      range,
+      spreadsheetId,
+      valueInputOption: "USER_ENTERED",
+      requestBody: {
+        values: [[timeStamp]],
+      },
+    });
+
+    return Promise.resolve(updateResponse.data);
+  } catch (err) {
     return Promise.reject(err);
   }
 };
