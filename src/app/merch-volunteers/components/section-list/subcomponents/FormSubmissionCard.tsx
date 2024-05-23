@@ -1,8 +1,11 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Icon, Text } from "@chakra-ui/react";
 import { EmailConfirmationButton } from "./buttons/EmailConfirmationButton";
-import { theme } from "../../../theme";
+import { lightButtonProps, theme } from "../../../theme";
 import { MarkConfirmedButton } from "./buttons/MarkConfirmedButton";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { CheckCircleIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
+import { AcknowledgedReceipt } from "./AcknowledgedReceipt";
+import { CancelVolunteerButton } from "./buttons/CancelVolunteerButton";
 
 // TODO: add unconfirm / cancel volunteer option
 
@@ -11,6 +14,7 @@ export const FormSubmissionCard = (props: {
   isDuplicate?: boolean;
 }) => {
   const { entry, isDuplicate } = props;
+  const isCanceled = !!props.entry.canceled;
   // const { confirmed } = entry;
   const { colors } = theme.light;
 
@@ -28,7 +32,17 @@ export const FormSubmissionCard = (props: {
     fontStyle: "italic",
   };
 
-  const formatProps = isDuplicate ? duplicateFormat : normalFormat;
+  const canceledFormat = {
+    backgroundColor: "#DCC",
+    textColor: "#000",
+    fontStyle: "italic",
+  };
+
+  const formatProps = isCanceled
+    ? canceledFormat
+    : isDuplicate
+      ? duplicateFormat
+      : normalFormat;
 
   return (
     <Flex
@@ -63,8 +77,12 @@ export const FormSubmissionCard = (props: {
       >
         {!isDuplicate && (
           <>
+            <AcknowledgedReceipt status={entry.acknowledged} />
+            {!entry.acknowledged && (
+              <EmailConfirmationButton active={true} entry={entry} />
+            )}
             <MarkConfirmedButton active={false} entry={entry} />
-            <EmailConfirmationButton active={false} entry={entry} />
+            <CancelVolunteerButton active={true} entry={entry} />
           </>
         )}
       </Flex>

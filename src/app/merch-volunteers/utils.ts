@@ -33,19 +33,20 @@ export const formatSubmissionEntry = (entry: Record<string, string>) => {
     : false;
 
   const formatted = {
-    submitted: entry["Submitted On"],
+    submitted: entry[ValidSpreadsheetKeys.SUBMITTED],
     dateCity,
     date,
     city,
     venue,
-    name: entry["Name"],
-    phone: entry["Phone"],
-    email: entry["Email Address"],
-    skills: entry["Special Skills"],
+    name: entry[ValidSpreadsheetKeys.NAME],
+    phone: entry[ValidSpreadsheetKeys.PHONE],
+    email: entry[ValidSpreadsheetKeys.EMAIL],
+    skills: entry[ValidSpreadsheetKeys.SKILLS],
     plusOne,
-    comments: entry["Additional Questions or Comments"],
+    comments: entry[ValidSpreadsheetKeys.COMMENTS],
     confirmed,
     acknowledged,
+    canceled: entry[ValidSpreadsheetKeys.CANCELED],
   };
 
   return formatted;

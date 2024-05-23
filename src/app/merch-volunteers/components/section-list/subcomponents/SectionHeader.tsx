@@ -1,4 +1,6 @@
+import { theme } from "@/app/merch-volunteers/theme";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { CheckCircleIcon } from "@chakra-ui/icons";
 import { Flex, Text } from "@chakra-ui/react";
 
 export const SectionHeader = (props: {
@@ -48,8 +50,14 @@ export const SectionHeader = (props: {
       <Text w={"10rem"}> {`Submissions: ${entries.length}`}</Text>
       <Text w={"18rem"}>
         {" "}
-        {`Confirmed (incl +1's): ${confirmedVolunteerCount}`}
+        {`Reached Out To (incl +1's): ${confirmedVolunteerCount}`}
       </Text>
+      {entries.some((e) => e.acknowledged) && (
+        <Flex alignItems="center" justifyContent="center">
+          <CheckCircleIcon color={theme.dark.colors.positive} />
+          <Text px="1rem">Vol Confimed</Text>
+        </Flex>
+      )}
     </Flex>
   );
 };
