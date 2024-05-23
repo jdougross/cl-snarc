@@ -45,6 +45,7 @@ export const MerchVolunteers = () => {
         <Flex
           mx="20%"
           my="2%"
+          bg="brand.background"
           flexDirection="column"
           alignItems="center"
           justifyContent="center"

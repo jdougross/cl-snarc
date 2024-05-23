@@ -1,6 +1,6 @@
 import { signIn } from "@/app/auth";
 import { Button, Flex, Img } from "@chakra-ui/react";
-import { buttonProps } from "../../theme";
+import { buttonProps } from "../../../theme";
 
 export function SignIn() {
   return (

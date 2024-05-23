@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Text, useToast } from "@chakra-ui/react";
-import { buttonProps, theme } from "../../../../theme";
+import { buttonProps } from "../../../../../theme";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
 import { cancelVolunteer } from "./cancelVolunteer";
 
@@ -21,8 +21,9 @@ export const CancelVolunteerButton = (props: {
       p="5%"
       disabled={!active}
       onClick={handleClick}
+      bg="brand.negative.primary"
+      textColor="brand.text.secondary"
       {...buttonProps}
-      bg={theme.dark.colors.negative}
     >
       <Text>Cancel Volunteer</Text>
     </Button>

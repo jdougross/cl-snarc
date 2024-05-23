@@ -5,12 +5,14 @@ import { auth } from "@/app/auth";
 import { SignIn } from "./merch-volunteers/components/sign-in/sign-in";
 import { SignOut } from "./merch-volunteers/components/sign-in/sign-out";
 
+import { theme } from "./theme";
+
 export default async function Home() {
   const session = await auth();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         {session ? <SignOut session={session} /> : <SignIn />}
         {session && <MerchVolunteers />}
       </ChakraProvider>
