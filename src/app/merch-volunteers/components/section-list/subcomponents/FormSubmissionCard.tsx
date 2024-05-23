@@ -1,13 +1,8 @@
-import { Flex, Icon, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { EmailConfirmationButton } from "./buttons/EmailConfirmationButton";
-import { lightButtonProps, theme } from "../../../theme";
-import { MarkConfirmedButton } from "./buttons/MarkConfirmedButton";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
-import { CheckCircleIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
-import { AcknowledgedReceipt } from "./AcknowledgedReceipt";
+import { VolunteerStatus } from "./buttons/VolunteerStatus";
 import { CancelVolunteerButton } from "./buttons/CancelVolunteerButton";
-
-// TODO: add unconfirm / cancel volunteer option
 
 export const FormSubmissionCard = (props: {
   entry: FormSubmissionEntry;
@@ -15,26 +10,24 @@ export const FormSubmissionCard = (props: {
 }) => {
   const { entry, isDuplicate } = props;
   const isCanceled = !!props.entry.canceled;
-  // const { confirmed } = entry;
-  const { colors } = theme.light;
-
-  const backgroundColor = entry.confirmed ? colors.positive : colors.background;
 
   const normalFormat = {
-    // backgroundColor: confirmed ? colors.positive : colors.background,
-    textColor: "#000",
+    backgroundColor: entry.confirmed
+      ? "brand.positive.secondary"
+      : "brand.background.primary",
+    textColor: "brand.text",
     fontStyle: "normal",
   };
 
   const duplicateFormat = {
-    // backgroundColor: colors.background,
-    textColor: "#BBB",
+    backgroundColor: "brand.background.primary",
+    textColor: "brand.text.tertiary",
     fontStyle: "italic",
   };
 
   const canceledFormat = {
-    backgroundColor: "#DCC",
-    textColor: "#000",
+    backgroundColor: "brand.negative.secondary",
+    textColor: "brand.text.secondary",
     fontStyle: "italic",
   };
 
@@ -51,10 +44,10 @@ export const FormSubmissionCard = (props: {
       justifyContent="space-between"
       p="1%"
       m="1%"
-      borderColor={colors.borders}
+      minHeight="200px"
+      borderColor="brand.borders.primary"
       borderWidth="thin"
       key={entry.submitted}
-      backgroundColor={backgroundColor}
       {...formatProps}
     >
       <Flex flexDirection="column" justifyContent="flex-start" w={"30%"}>
@@ -77,12 +70,13 @@ export const FormSubmissionCard = (props: {
       >
         {!isDuplicate && (
           <>
-            <AcknowledgedReceipt status={entry.acknowledged} />
+            <VolunteerStatus entry={entry} />
             {!entry.acknowledged && (
               <EmailConfirmationButton active={true} entry={entry} />
             )}
-            <MarkConfirmedButton active={false} entry={entry} />
-            <CancelVolunteerButton active={true} entry={entry} />
+            {!entry.canceled && (
+              <CancelVolunteerButton active={true} entry={entry} />
+            )}
           </>
         )}
       </Flex>

@@ -5,7 +5,6 @@ import {
   AccordionPanel,
   AccordionIcon,
 } from "@chakra-ui/react";
-import { theme } from "../../../theme";
 import { SectionHeader } from "./SectionHeader";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
 
@@ -14,13 +13,9 @@ export const SectionListSection = (props: {
   entries: FormSubmissionEntry[];
 }) => {
   const { section, entries } = props;
-  const { colors } = theme.light;
 
   return (
-    <AccordionItem
-      key={section.dateCity}
-      backgroundColor={colors.offBackground}
-    >
+    <AccordionItem key={section.dateCity}>
       <AccordionButton>
         <SectionHeader entries={entries} section={section} />
         <AccordionIcon />

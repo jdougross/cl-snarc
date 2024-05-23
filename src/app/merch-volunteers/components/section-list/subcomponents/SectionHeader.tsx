@@ -1,13 +1,13 @@
-import { theme } from "@/app/merch-volunteers/theme";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
 import { CheckCircleIcon } from "@chakra-ui/icons";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, useTheme } from "@chakra-ui/react";
 
 export const SectionHeader = (props: {
   entries: FormSubmissionEntry[];
   section: any;
 }) => {
   const { entries, section } = props;
+  const theme = useTheme();
 
   const formattedDate = new Date(section.date).toLocaleDateString("en-US", {
     month: "short",
@@ -53,8 +53,9 @@ export const SectionHeader = (props: {
         {`Reached Out To (incl +1's): ${confirmedVolunteerCount}`}
       </Text>
       {entries.some((e) => e.acknowledged) && (
+        // TODO: logic for "email sent vs no action"
         <Flex alignItems="center" justifyContent="center">
-          <CheckCircleIcon color={theme.dark.colors.positive} />
+          <CheckCircleIcon color="brand.icon.primary" />
           <Text px="1rem">Vol Confimed</Text>
         </Flex>
       )}

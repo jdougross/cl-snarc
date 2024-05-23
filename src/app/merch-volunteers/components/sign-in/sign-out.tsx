@@ -1,7 +1,7 @@
 import { signOut } from "@/app/auth";
 import { Button, Flex, Img } from "@chakra-ui/react";
 import { Session } from "next-auth";
-import { buttonProps } from "../../theme";
+import { buttonProps } from "../../../theme";
 
 export function SignOut(props: { session: Session }) {
   return (

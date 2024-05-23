@@ -1,6 +1,13 @@
 "use client";
 
-import { Button, Flex, Spacer, Text, useToast } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Spacer,
+  Text,
+  useTheme,
+  useToast,
+} from "@chakra-ui/react";
 
 import {
   Modal,
@@ -12,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { FormSubmissionEntry } from "../../types";
 import { sendConfirmationEmail } from "./sendConfiirmationEmail";
-import { buttonProps, theme } from "../../theme";
+import { buttonProps } from "../../../theme";
 import { InfoBox } from "./subcomponents/InfoBox";
 
 export const EmailModal = (props: {
@@ -22,6 +29,7 @@ export const EmailModal = (props: {
 }) => {
   const { entry, isOpen, onClose } = props;
   const toast = useToast();
+  const theme = useTheme();
 
   const handleClick = async () => {
     await sendConfirmationEmail(entry, (args) => toast(args));

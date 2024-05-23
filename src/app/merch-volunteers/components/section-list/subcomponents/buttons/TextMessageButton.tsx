@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Text } from "@chakra-ui/react";
-import { buttonProps } from "../../../../theme";
+import { buttonProps } from "../../../../../theme";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
 
 export const TextMessageButton = (props: {
