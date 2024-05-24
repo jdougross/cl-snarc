@@ -1,8 +1,5 @@
-import { Flex, Text } from "@chakra-ui/react";
-import { EmailConfirmationButton } from "./subcomponents/EmailConfirmationButton";
+import { Flex } from "@chakra-ui/react";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
-import { VolunteerStatus } from "./subcomponents/VolunteerStatus";
-import { CancelVolunteerButton } from "./subcomponents/CancelVolunteerButton";
 import { CommentsAndSkills } from "./subcomponents/CommentsAndSkills";
 import { VolunteerDetails } from "./subcomponents/VolunteerDetails";
 import { StatusAndActions } from "./subcomponents/StatusAndActions";
@@ -21,7 +18,7 @@ export const FormSubmissionCard = (props: {
       justifyContent="space-between"
       m={2}
       w={"100%"}
-      minH={200} // NOTE: watch for long skills-and-comments sections
+      minH={175} // NOTE - feels arbitrary
       borderColor="brand.borders.primary"
       borderWidth="thin"
       key={entry.submitted}
@@ -49,20 +46,14 @@ export const FormSubmissionCard = (props: {
       >
         <CommentsAndSkills entry={entry} />
       </Flex>
-
-      {!isDuplicate && (
-        <Flex
-          flexDirection="column"
-          alignItems="flex-start"
-          justifyContent="flex-start"
-          py={2}
-          m={4}
-          h={"100%"}
-          w={"30%"}
-        >
-          <StatusAndActions entry={entry} />
-        </Flex>
-      )}
+      <Flex
+        flexDirection="column"
+        justifyContent="space-evenly"
+        m={4}
+        w={"30%"}
+      >
+        {!isDuplicate && <StatusAndActions entry={entry} />}
+      </Flex>
     </Flex>
   );
 };

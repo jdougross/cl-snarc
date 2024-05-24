@@ -36,13 +36,8 @@ export const VolunteerStatus = (props: {
 
   return (
     <Flex
-      alignItems="center"
-      justifyContent="space-evenly"
       border="1px"
       borderColor="brand.borders.primary"
-      borderRadius={4}
-      fontWeight="semibold"
-      fontSize="md"
       {...props.style}
       {...statusProps}
     >
