@@ -1,7 +1,6 @@
 "use client";
 
-import { Button, Text } from "@chakra-ui/react";
-import { buttonProps } from "../../../../../theme";
+import { Button, StyleProps, Text } from "@chakra-ui/react";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
 import { useContext } from "react";
 import { FetchContext } from "@/app/merch-volunteers";
@@ -9,8 +8,9 @@ import { FetchContext } from "@/app/merch-volunteers";
 export const MarkConfirmedButton = (props: {
   active: boolean;
   entry: FormSubmissionEntry;
+  style?: StyleProps;
 }) => {
-  const { active, entry } = props;
+  const { active, entry, style } = props;
 
   const refetch = useContext(FetchContext);
 
@@ -30,7 +30,7 @@ export const MarkConfirmedButton = (props: {
   };
 
   return (
-    <Button p="5%" disabled={!active} onClick={handleClick} {...buttonProps}>
+    <Button disabled={!active} onClick={handleClick} {...style}>
       <Text>{entry.confirmed ? "Unmark Confirmed" : "Mark Confirmed"}</Text>
     </Button>
   );

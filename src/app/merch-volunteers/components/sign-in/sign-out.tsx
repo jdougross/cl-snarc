@@ -1,7 +1,6 @@
 import { signOut } from "@/app/auth";
 import { Button, Flex, Img } from "@chakra-ui/react";
 import { Session } from "next-auth";
-import { buttonProps } from "../../../theme";
 
 export function SignOut(props: { session: Session }) {
   return (
@@ -11,21 +10,18 @@ export function SignOut(props: { session: Session }) {
         await signOut();
       }}
     >
-      <Flex
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="flex-end"
-        px="8rem"
-        py="2rem"
-      >
+      <Flex alignItems="center" justifyContent="flex-end" p={4}>
         <Img
           src={props.session.user?.image ?? ""}
-          height="30px"
-          width="30px"
-          borderRadius="15px"
-          mx="1rem"
+          h={8}
+          borderRadius={16}
+          m={2}
         />
-        <Button type="submit" {...buttonProps}>
+        <Button
+          type="submit"
+          bg="brand.background.secondary"
+          textColor="brand.text.primary"
+        >
           {`Sign Out: ${props.session.user?.email}`}
         </Button>
       </Flex>
