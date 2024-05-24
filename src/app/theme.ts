@@ -14,7 +14,8 @@ const blue = {
   },
   negative: {
     primary: "#103247",
-    secondary: "#596f7d",
+    secondary: "#424954",
+    error: "#922",
   },
   icon: {
     primary: "#1b89FF",
@@ -42,6 +43,7 @@ const green = {
   negative: {
     primary: "#104732",
     secondary: "#597D6F",
+    error: "#922",
   },
   icon: {
     primary: "#1BAC68",
@@ -60,23 +62,6 @@ const green = {
 
 export const theme = extendTheme({
   colors: {
-    brand: green,
+    brand: blue,
   },
-  // fonts: {
-  //   body: "monospace, system-ui, sans-serif",
-  //   heading: "monospace, Georgia, serif",
-  //   mono: "monospace, Menlo, monospace",
-  // },
 });
-
-export const buttonProps = {
-  borderWidth: "1px",
-  // borderColor: "#000",
-  borderRadius: "0.5rem",
-  // backgroundColor: themeColor.dark,
-  // textColor: "#FFF",
-  padding: "1rem",
-  margin: "0.5rem",
-  minWidth: "15rem",
-  height: "2.5rem",
-};

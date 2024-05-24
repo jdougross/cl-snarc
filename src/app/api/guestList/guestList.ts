@@ -3,23 +3,10 @@ import Airtable, { FieldSet, Record } from "airtable";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
 import { formatGuestListSellerLine } from "./utils";
 
-/*
-  get airtable entry BY DATE
-
-  check entry guest list field for this person
-  parse by newLine?
-  --> present ? notification, return, leave alone
-  --> not present -> add.
-
-  update Merch Status field
-  --> add to enum for stages-of-confirmation
-
-  TODO: add merch seller contact field in AT
-  TODO: DELETE merch seller... 
-  - extra field for canceled in google sheet
-  - remove from guest list along with +x
-  - handle de-duplication (longer issue)
-*/
+/**
+ * TODO: add merch seller contact field in AT
+ * TODO: update MERCH STATUS field of AT
+ */
 
 const apiKey = process.env.GUEST_LIST_STORAGE_API_KEY || "";
 const baseId = process.env.GUEST_LIST_STORAGE_BASE_ID || "";

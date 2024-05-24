@@ -1,15 +1,15 @@
 "use client";
 
-import { Button, Text, useToast } from "@chakra-ui/react";
-import { buttonProps } from "../../../../../theme";
+import { Button, StyleProps, Text, useToast } from "@chakra-ui/react";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
-import { cancelVolunteer } from "./cancelVolunteer";
+import { cancelVolunteer } from "./utils/cancelVolunteer";
 
 export const CancelVolunteerButton = (props: {
   active: boolean;
   entry: FormSubmissionEntry;
+  style?: StyleProps;
 }) => {
-  const { active, entry } = props;
+  const { active, entry, style } = props;
   const toast = useToast();
 
   const handleClick = async () => {
@@ -18,12 +18,11 @@ export const CancelVolunteerButton = (props: {
 
   return (
     <Button
-      p="5%"
       disabled={!active}
       onClick={handleClick}
       bg="brand.negative.primary"
       textColor="brand.text.secondary"
-      {...buttonProps}
+      {...style}
     >
       <Text>Cancel Volunteer</Text>
     </Button>

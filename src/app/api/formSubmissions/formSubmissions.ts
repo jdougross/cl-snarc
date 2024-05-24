@@ -8,11 +8,6 @@ import { keyFile } from "../../../../keyFile";
 
 const scopes = ["https://spreadsheets.google.com/feeds/"];
 
-// export const auth = new google.auth.GoogleAuth({
-//   keyFile: process.cwd() + "/service_account.json",
-//   scopes,
-// });
-
 export const auth = new google.auth.GoogleAuth({
   credentials: keyFile,
   scopes,
@@ -65,6 +60,10 @@ export const updateEntryConfirmed = async (entry: FormSubmissionEntry) => {
 };
 
 export const markEntryAcknowledged = async (entry: FormSubmissionEntry) => {
+  /**
+   * TODO - consider doing this as a timestamp rather than a true t/f
+   */
+
   try {
     const sheetsResponse = await getAllRows();
 
@@ -95,7 +94,11 @@ export const markEntryAcknowledged = async (entry: FormSubmissionEntry) => {
 
 export const markEntryCanceled = async (entry: FormSubmissionEntry) => {
   const timeStamp = new Date().toISOString();
-  // TODO: include id of admin making this cancellation?
+
+  /**
+   * TODO - include id of admin making this cancellation for remote log?
+   * TODO - make this timestamp just a date rather than a full ISO to make it easier to manually update if need be?
+   */
 
   try {
     const sheetsResponse = await getAllRows();
