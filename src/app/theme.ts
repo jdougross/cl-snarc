@@ -62,6 +62,6 @@ const green = {
 
 export const theme = extendTheme({
   colors: {
-    brand: green,
+    brand: blue,
   },
 });
