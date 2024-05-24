@@ -10,6 +10,10 @@ export const sendConfirmationEmail = async (
   // TODO: this should produce error toasts, it does not
   // const body = JSON.stringify({ entry, confirmed: true });
 
+  /**
+   * TODO: can we factor out toasts here into a separately formatted component?
+   */
+
   const duration = 5000; // toast duration
 
   try {

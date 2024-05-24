@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Button,
-  Flex,
-  Spacer,
-  Text,
-  useTheme,
-  useToast,
-} from "@chakra-ui/react";
+import { Button, Flex, Text, useTheme, useToast } from "@chakra-ui/react";
 
 import {
   Modal,
@@ -19,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import { FormSubmissionEntry } from "../../types";
 import { sendConfirmationEmail } from "./sendConfiirmationEmail";
-import { buttonProps } from "../../../theme";
 import { InfoBox } from "./subcomponents/InfoBox";
 
 export const EmailModal = (props: {
@@ -74,12 +66,10 @@ export const EmailModal = (props: {
                       <InfoBox rows={["TJ"]} header={`Tour Contact:`} />
                     </Flex>
                     <Flex marginTop="1rem">
-                      <Button onClick={handleClick} {...buttonProps}>
+                      <Button onClick={handleClick}>
                         {"Send Confirmation"}
                       </Button>
-                      <Button onClick={onClose} {...buttonProps}>
-                        {"Cancel"}
-                      </Button>
+                      <Button onClick={onClose}>{"Cancel"}</Button>
                     </Flex>
                   </Flex>
                 </>

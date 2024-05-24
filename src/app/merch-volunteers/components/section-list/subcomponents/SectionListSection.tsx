@@ -1,4 +1,4 @@
-import { FormSubmissionCard } from "./FormSubmissionCard";
+import { FormSubmissionCard } from "./formSubmissionCard/FormSubmissionCard";
 import {
   AccordionItem,
   AccordionButton,

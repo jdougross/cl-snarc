@@ -8,7 +8,7 @@ import {
   AccordionIcon,
 } from "@chakra-ui/react";
 import { SectionHeader } from "./SectionHeader";
-import { FormSubmissionCard } from "./FormSubmissionCard";
+import { FormSubmissionCard } from "./formSubmissionCard/FormSubmissionCard";
 import { SectionData } from "../SectionList";
 
 export const SectionsAccordion = (props: {
@@ -36,24 +36,20 @@ export const SectionsAccordion = (props: {
           <AccordionItem
             key={section.dateCity}
             bg="brand.background.secondary"
-            m={"1%"}
+            m={4}
           >
-            <AccordionButton>
+            <AccordionButton justifyContent={"space-between"} p={4}>
               <SectionHeader entries={entries} section={section} />
               <AccordionIcon />
             </AccordionButton>
             <AccordionPanel>
-              {entries.map((entry) => {
-                const isDuplicate = true;
-
-                return (
-                  <FormSubmissionCard
-                    entry={entry}
-                    isDuplicate={!!entry?.isDuplicate}
-                    key={JSON.stringify(entry)}
-                  />
-                );
-              })}
+              {entries.map((entry) => (
+                <FormSubmissionCard
+                  entry={entry}
+                  isDuplicate={!!entry?.isDuplicate}
+                  key={JSON.stringify(entry)}
+                />
+              ))}
             </AccordionPanel>
           </AccordionItem>
         );

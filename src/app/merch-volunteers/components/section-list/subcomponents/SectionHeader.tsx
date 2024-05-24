@@ -1,13 +1,12 @@
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
 import { CheckCircleIcon } from "@chakra-ui/icons";
-import { Flex, Text, useTheme } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 
 export const SectionHeader = (props: {
   entries: FormSubmissionEntry[];
   section: any;
 }) => {
   const { entries, section } = props;
-  const theme = useTheme();
 
   const formattedDate = new Date(section.date).toLocaleDateString("en-US", {
     month: "short",
@@ -34,12 +33,19 @@ export const SectionHeader = (props: {
     return acc + (cur.plusOne ? 2 : 1);
   }, 0);
 
+  /*
+    TODO: add logic and display for following:
+    "Email Sent / Awaiting Responses"
+    "Volunteer(s) Confirmed / Acknowledged"
+    "Volunteer Canceled"
+  */
+
   return (
     <Flex
-      w="100%"
-      p="1%"
+      // w="100%"
+      p={4}
       alignItems={"center"}
-      justifyContent={"flex-start"}
+      justifyContent={"space-between"}
       textAlign={"left"}
     >
       <Text w={"6rem"}> {formattedDate}</Text>

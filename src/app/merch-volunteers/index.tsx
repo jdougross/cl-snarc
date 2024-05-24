@@ -38,20 +38,25 @@ export const MerchVolunteers = () => {
   if (!data || isLoading) return <div>Loading...</div>;
 
   const { byDate } = formatSpreadsheetData(data);
+  /**
+   * TODO: margins on overall section should be responsive to dimensions
+   */
 
   return (
     <FetchContext.Provider value={getVolunteerData}>
       <ContactContext.Provider value={openEmailModal}>
-        <Flex
-          mx="20%"
-          my="2%"
-          bg="brand.background"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <SectionList sectionListData={byDate} />
-          <EmailModal entry={modalEntry} isOpen={isOpen} onClose={onClose} />
+        <Flex justifyContent={"center"}>
+          <Flex
+            bg="brand.background"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            fontSize="sm"
+            maxW={1000}
+          >
+            <SectionList sectionListData={byDate} />
+            <EmailModal entry={modalEntry} isOpen={isOpen} onClose={onClose} />
+          </Flex>
         </Flex>
       </ContactContext.Provider>
     </FetchContext.Provider>
