@@ -41,6 +41,7 @@ export const FormSubmissionCard = (props: {
         h="100%"
         p={2}
         mr={2}
+        m={4}
         fontStyle={"italic"}
         fontWeight={"light"}
       >
@@ -48,7 +49,7 @@ export const FormSubmissionCard = (props: {
       </Flex>
       <Flex
         flexDirection="column"
-        justifyContent="space-evenly"
+        justifyContent="space-between"
         m={4}
         w={"30%"}
       >

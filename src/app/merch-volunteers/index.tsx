@@ -51,7 +51,7 @@ export const MerchVolunteers = () => {
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
-            fontSize="sm"
+            fontSize="xs"
             maxW={1000}
           >
             <SectionList sectionListData={byDate} />

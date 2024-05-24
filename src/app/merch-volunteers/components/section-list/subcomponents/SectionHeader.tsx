@@ -47,6 +47,7 @@ export const SectionHeader = (props: {
       alignItems={"center"}
       justifyContent={"space-between"}
       textAlign={"left"}
+      fontSize={"sm"}
     >
       <Text w={"6rem"}> {formattedDate}</Text>
       <Flex direction="column" w={"12rem"}>

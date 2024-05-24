@@ -1,5 +1,5 @@
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
-import { Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 export const VolunteerDetails = (props: { entry: FormSubmissionEntry }) => {
   const { entry } = props;
@@ -8,11 +8,13 @@ export const VolunteerDetails = (props: { entry: FormSubmissionEntry }) => {
    */
 
   return (
-    <>
-      <Text>{entry.name}</Text>
+    <Box fontSize={"xs"}>
+      <Text fontWeight={"semibold"} fontSize={"sm"} pb={4}>
+        {entry.name}
+      </Text>
       <Text>{entry.email}</Text>
       <Text>{entry.phone}</Text>
       <Text>{`Plus One?: ${entry.plusOne ? "Yes" : "No"}`}</Text>
-    </>
+    </Box>
   );
 };
