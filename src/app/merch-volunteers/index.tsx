@@ -16,6 +16,7 @@ export const MerchVolunteers = () => {
   const [isLoading, setLoading] = useState(true);
   const [modalEntry, setModalEntry] = useState({} as FormSubmissionEntry);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const getVolunteerData = () => {
     fetch("/api/volunteers/data", { cache: "no-store" })
@@ -25,6 +26,10 @@ export const MerchVolunteers = () => {
         setLoading(false);
       });
   };
+
+  useEffect(() => {
+    window?.addEventListener("resize", () => setWindowWidth(window.innerWidth));
+  }, []);
 
   useEffect(() => {
     getVolunteerData();
@@ -42,6 +47,16 @@ export const MerchVolunteers = () => {
    * TODO: margins on overall section should be responsive to dimensions
    */
 
+  const narrowScreen = {
+    w: "100%",
+  };
+
+  const wideScreen = {
+    w: "70%",
+  };
+
+  const sizeProps = windowWidth > 1000 ? wideScreen : narrowScreen;
+
   return (
     <FetchContext.Provider value={getVolunteerData}>
       <ContactContext.Provider value={openEmailModal}>
@@ -52,7 +67,7 @@ export const MerchVolunteers = () => {
             alignItems="center"
             justifyContent="center"
             fontSize="xs"
-            maxW={1000}
+            {...sizeProps}
           >
             <SectionList sectionListData={byDate} />
             <EmailModal entry={modalEntry} isOpen={isOpen} onClose={onClose} />
