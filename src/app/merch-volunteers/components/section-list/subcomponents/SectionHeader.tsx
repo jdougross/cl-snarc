@@ -54,7 +54,7 @@ export const SectionHeader = (props: {
       <Flex
         direction={"column"}
         justifyContent={"space-between"}
-        w={"30%"}
+        w={"20%"}
         mx={2}
       >
         {/**
@@ -79,8 +79,8 @@ export const SectionHeader = (props: {
         direction={"column"}
         alignItems="flex-start"
         justifyContent="flex-start"
-        w={"25%"}
-        mx={2}
+        w={"20%"}
+        ml={8}
       >
         {entries.some((e) => e.acknowledged) && (
           // TODO: logic for "email sent vs no action"
