@@ -2,7 +2,7 @@
 
 import { Button, StyleProps, Text, useToast } from "@chakra-ui/react";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
-import { cancelVolunteer } from "./utils/cancelVolunteer";
+import { cancelVolunteer } from "../../../../../actions/cancelVolunteer";
 
 export const CancelVolunteerButton = (props: {
   active: boolean;

@@ -11,7 +11,7 @@ import {
   ModalBody,
 } from "@chakra-ui/react";
 import { FormSubmissionEntry } from "../../types";
-import { sendConfirmationEmail } from "./sendConfiirmationEmail";
+import { sendConfirmationEmail } from "../../actions/sendConfiirmationEmail";
 import { InfoBox } from "./subcomponents/InfoBox";
 
 export const EmailModal = (props: {

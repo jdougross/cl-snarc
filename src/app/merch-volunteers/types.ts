@@ -36,3 +36,17 @@ export interface FormSubmissionEntry {
   canceled?: string;
   emailed?: string;
 }
+
+/*
+
+export enum ShowCoverageStatus {
+  NO_STATUS = "",
+  NA = "N/A",
+  VENUE_SELLS = "Venue Sells",
+  ASKING_VENUE = "Asking Venue",
+  SELECTED = "Awaiting Confirmation",
+  CONFIRMED = "CONFIRMED",
+  CANCELED = "CANCELED",
+}
+
+*/
