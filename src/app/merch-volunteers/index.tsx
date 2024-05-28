@@ -4,6 +4,7 @@ import { Flex, useDisclosure } from "@chakra-ui/react";
 import { SectionList } from "./components/section-list/SectionList";
 import { formatSpreadsheetData } from "./utils";
 
+import * as React from "react";
 import { createContext, useEffect, useState } from "react";
 import { FormSubmissionEntry } from "./types";
 import { EmailModal } from "./components/email-modal/EmailModal";
@@ -16,7 +17,7 @@ export const MerchVolunteers = () => {
   const [isLoading, setLoading] = useState(true);
   const [modalEntry, setModalEntry] = useState({} as FormSubmissionEntry);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(1000);
 
   const getVolunteerData = () => {
     fetch("/api/volunteers/data", { cache: "no-store" })
@@ -27,8 +28,9 @@ export const MerchVolunteers = () => {
       });
   };
 
-  useEffect(() => {
-    window?.addEventListener("resize", () => setWindowWidth(window.innerWidth));
+  // Note - "window" object not available outside of React.useEffect hook
+  React.useEffect(() => {
+    window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
   }, []);
 
   useEffect(() => {
