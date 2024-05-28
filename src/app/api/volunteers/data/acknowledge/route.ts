@@ -10,6 +10,10 @@ export async function POST(request: Request) {
 
     // console.log({ data })
 
+    /**
+     * TODO: turn "acknowledged" route ino a timestamp thing
+     */
+
     return NextResponse.json(
       { message: "volunteer acknowledged email confirmation", data },
       { status: 200 },

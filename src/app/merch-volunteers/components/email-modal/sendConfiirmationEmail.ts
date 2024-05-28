@@ -45,6 +45,34 @@ export const sendConfirmationEmail = async (
   }
 
   try {
+    const timestampResponse = await fetch("/api/volunteers/data/email", {
+      method: "PUT",
+      body,
+      cache: "no-store",
+    });
+
+    const checkboxResponseData = await timestampResponse.json();
+    // console.log(JSON.stringify(checkboxResponseData, null, 2));
+
+    toast({
+      title: "Success: Storage",
+      description: `Successfully logged email-send to ${entry?.email} for show on ${entry?.date}`,
+      status: "success",
+      duration,
+      position: "top",
+    });
+  } catch (err) {
+    // console.log(" - Error updating google sheet - ", err);
+    toast({
+      title: "Error: Storage",
+      description: `There was an error logging email-send for ${entry?.email} related to show on ${entry?.date}`,
+      status: "error",
+      duration,
+      position: "top",
+    });
+  }
+
+  try {
     const checkboxResponse = await fetch("/api/volunteers/data/confirm", {
       method: "PUT",
       body,

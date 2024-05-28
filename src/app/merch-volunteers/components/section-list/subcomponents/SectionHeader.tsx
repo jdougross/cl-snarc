@@ -1,6 +1,7 @@
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
-import { CheckCircleIcon } from "@chakra-ui/icons";
+import { CheckCircleIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
 import { Flex, Text } from "@chakra-ui/react";
+import { formatHeaderDate, formatVenueName } from "./utils";
 
 export const SectionHeader = (props: {
   entries: FormSubmissionEntry[];
@@ -8,15 +9,8 @@ export const SectionHeader = (props: {
 }) => {
   const { entries, section } = props;
 
-  const formattedDate = new Date(section.date).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-  });
-
-  let formattedVenueName =
-    section.venue.length > 21
-      ? section.venue.slice(0, 21) + "..."
-      : section.venue;
+  const formattedDate = formatHeaderDate(section.date);
+  const formattedVenueName = formatVenueName(section.venue);
 
   const uniqueEmails = new Set();
   const confirmedVolunteerCount = entries.reduce((acc, cur) => {
@@ -42,29 +36,67 @@ export const SectionHeader = (props: {
 
   return (
     <Flex
-      // w="100%"
-      p={4}
-      alignItems={"center"}
+      w="100%"
+      alignItems={"flex-start"}
       justifyContent={"space-between"}
       textAlign={"left"}
+      fontSize={"xs"}
     >
-      <Text w={"6rem"}> {formattedDate}</Text>
-      <Flex direction="column" w={"12rem"}>
-        <Text> {section.city}</Text>
-        <Text> {formattedVenueName}</Text>
-      </Flex>
-      <Text w={"10rem"}> {`Submissions: ${entries.length}`}</Text>
-      <Text w={"18rem"}>
-        {" "}
-        {`Reached Out To (incl +1's): ${confirmedVolunteerCount}`}
+      <Text w={"15%"} mx={2}>
+        {formattedDate}
       </Text>
-      {entries.some((e) => e.acknowledged) && (
-        // TODO: logic for "email sent vs no action"
-        <Flex alignItems="center" justifyContent="center">
-          <CheckCircleIcon color="brand.icon.primary" />
-          <Text px="1rem">Vol Confimed</Text>
+
+      <Flex direction="column" w={"25%"} mx={2}>
+        <Text>{section.city}</Text>
+        <Text>{formattedVenueName}</Text>
+      </Flex>
+
+      <Flex
+        direction={"column"}
+        justifyContent={"space-between"}
+        w={"20%"}
+        mx={2}
+      >
+        {/**
+         * TODO: factor the below into a subcomponent
+         */}
+
+        <Flex justifyContent={"space-between"}>
+          <Text>{`Entries:`} </Text>
+          <Text>{entries.length} </Text>
         </Flex>
-      )}
+        <Flex justifyContent={"space-between"}>
+          <Text>{`Emailed:`} </Text>
+          <Text>{confirmedVolunteerCount} </Text>
+        </Flex>
+        <Flex justifyContent={"space-between"}>
+          <Text>{`Confirmed:`} </Text>
+          <Text>{0} </Text>
+        </Flex>
+      </Flex>
+
+      <Flex
+        direction={"column"}
+        alignItems="flex-start"
+        justifyContent="flex-start"
+        w={"20%"}
+        ml={8}
+      >
+        {entries.some((e) => e.acknowledged) && (
+          // TODO: logic for "email sent vs no action"
+          // TODO: logic for "volunteer canceled"
+          <>
+            <Flex alignItems={"center"}>
+              <CheckCircleIcon color="brand.icon.primary" />
+              <Text mx={1}>Confirmed</Text>
+            </Flex>
+            <Flex alignItems={"center"}>
+              <QuestionOutlineIcon color="brand.icon.primary" />
+              <Text mx={1}>Awaiting</Text>
+            </Flex>
+          </>
+        )}
+      </Flex>
     </Flex>
   );
 };
