@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { ConfirmedLanding } from "./ConfirmedLanding";
 
 export default async function Page({
   params: { token },
@@ -22,12 +23,11 @@ export default async function Page({
     },
   );
 
-  console.log({ email, date, body, res });
-  // TODO: jeuj this up a good bit to not look janky.
-  return (
-    <div>
-      Thanks for confirming! Looking forward to seeing you at the show! -Carbon
-      Leaf
-    </div>
-  );
+  // console.log({ email, date, body, res });
+
+  /**
+   * TODO: add an errorLanding page
+   */
+
+  return <ConfirmedLanding date={decoded?.date} />;
 }
