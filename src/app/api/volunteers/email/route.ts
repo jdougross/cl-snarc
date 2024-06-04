@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generateConfirmationEmail } from "./utils";
+import { generateConfirmationEmail } from "./confirmationEmail";
 import nodemailer from "nodemailer";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   // TODO: sanitize input here or on FE?
   // validate email address?
 
@@ -30,7 +30,9 @@ export async function POST(request: Request) {
     auth,
   });
 
-  const { html, subject } = generateConfirmationEmail(entry);
+  const confirmationEmail = await generateConfirmationEmail(entry);
+  const { html, subject } = confirmationEmail;
+
   const mailOptions = {
     from: user,
     to: safeDestination, // TODO: remove when ready
@@ -40,6 +42,9 @@ export async function POST(request: Request) {
 
   try {
     const mailerResponse = await transporter.sendMail(mailOptions);
+    /**
+     * TODO: log email
+     */
     return NextResponse.json(
       { message: "email successfully sent" },
       { status: 200 },
