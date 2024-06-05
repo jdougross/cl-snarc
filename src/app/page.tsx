@@ -7,6 +7,8 @@ import { SignOut } from "./merch-volunteers/components/sign-in/sign-out";
 
 import { theme } from "./theme";
 
+export const fetchCache = "force-no-store";
+
 export default async function Home() {
   const session = await auth();
 
