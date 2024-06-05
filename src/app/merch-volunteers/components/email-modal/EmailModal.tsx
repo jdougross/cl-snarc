@@ -13,6 +13,8 @@ import {
 import { FormSubmissionEntry } from "../../types";
 import { sendConfirmationEmail } from "../../actions/sendConfiirmationEmail";
 import { InfoBox } from "./subcomponents/InfoBox";
+import { useContext } from "react";
+import { FetchContext } from "../..";
 
 export const EmailModal = (props: {
   entry: FormSubmissionEntry;
@@ -22,9 +24,11 @@ export const EmailModal = (props: {
   const { entry, isOpen, onClose } = props;
   const toast = useToast();
   const theme = useTheme();
+  const refetch = useContext(FetchContext);
 
   const handleClick = async () => {
     await sendConfirmationEmail(entry, (args) => toast(args));
+    refetch();
     onClose();
   };
 

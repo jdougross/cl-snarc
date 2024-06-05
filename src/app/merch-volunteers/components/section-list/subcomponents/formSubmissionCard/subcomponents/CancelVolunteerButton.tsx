@@ -3,6 +3,8 @@
 import { Button, StyleProps, Text, useToast } from "@chakra-ui/react";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
 import { cancelVolunteer } from "../../../../../actions/cancelVolunteer";
+import { useContext } from "react";
+import { FetchContext } from "@/app/merch-volunteers";
 
 export const CancelVolunteerButton = (props: {
   active: boolean;
@@ -11,9 +13,11 @@ export const CancelVolunteerButton = (props: {
 }) => {
   const { active, entry, style } = props;
   const toast = useToast();
+  const refetch = useContext(FetchContext);
 
   const handleClick = async () => {
-    cancelVolunteer(entry, toast);
+    await cancelVolunteer(entry, toast);
+    refetch();
   };
 
   return (

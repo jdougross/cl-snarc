@@ -9,8 +9,6 @@ export const metadata: Metadata = {
   description: "Super New App R C",
 };
 
-export const fetchCache = "force-no-store";
-
 export default function RootLayout({
   children,
 }: Readonly<{
