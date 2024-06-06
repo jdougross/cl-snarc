@@ -19,7 +19,7 @@ export const sendConfirmationEmail = async (
 
     const emailResponseData = await emailResponse.json();
     toasts.sendConfirmationEmail.success({ entry, toast });
-  } catch (err) {
+  } catch (error) {
     toasts.sendConfirmationEmail.error({ entry, toast });
     return;
   }
@@ -37,7 +37,7 @@ export const sendConfirmationEmail = async (
 
     const timestampResponseData = await timestampResponse.json();
     toasts.markVolunteerConfirmed.success({ entry, toast });
-  } catch (err) {
+  } catch (error) {
     toasts.markVolunteerConfirmed.error({ entry, toast });
   }
 
@@ -50,7 +50,7 @@ export const sendConfirmationEmail = async (
 
     const checkboxResponseData = await checkboxResponse.json();
     toasts.markVolunteerConfirmed.success({ entry, toast });
-  } catch (err) {
+  } catch (error) {
     toasts.markVolunteerConfirmed.error({ entry, toast });
   }
 
@@ -63,7 +63,7 @@ export const sendConfirmationEmail = async (
 
     const guestListResponseData = await guestListResponse.json();
     toasts.addToGuestList.success({ entry, toast });
-  } catch (err) {
+  } catch (error) {
     toasts.addToGuestList.error({ entry, toast });
   }
 };

@@ -16,7 +16,7 @@ export const cancelVolunteer = async (
 
     const formSubmissionsRepsonseData = await formSubmissionsResponse.json();
     toasts.cancelVolunteer.success({ entry, toast });
-  } catch (err) {
+  } catch (error) {
     toasts.cancelVolunteer.error({ entry, toast });
     return;
   }
@@ -30,7 +30,7 @@ export const cancelVolunteer = async (
 
     const guestListResponseData = await guestListResponse.json();
     toasts.removeFromGuestList.success({ entry, toast });
-  } catch (err) {
+  } catch (error) {
     toasts.removeFromGuestList.error({ entry, toast });
   }
 };

@@ -7,25 +7,11 @@ interface RequestWithFormSubmissionEntry extends Request {
   json: () => Promise<FormSubmissionEntry>;
 }
 
-const sampleEntry = {
-  submitted: "3/5/2024 0:23:58",
-  dateCity: "04/11/2024  Roanoke, VA  5 Points Music Sanctuary",
-  date: "04/11/2024",
-  city: "Roanoke, VA",
-  venue: "5 Points Music Sanctuary",
-  name: "Doug Ross",
-  phone: "(222) 222-2222",
-  email: "jdougross@gmail.com",
-  skills: "test",
-  plusOne: false,
-  comments: "test",
-  confirmed: false,
-};
-
 export async function GET(request: NextRequest) {
+  // TODO: get show date from request params
+  const showDate = "04/11/2024";
+
   try {
-    // TODO: get show date from request params
-    const showDate = "04/11/2024";
     const guestList = await GuestList.getGuestListByShowDate(showDate);
 
     return NextResponse.json(
@@ -33,8 +19,9 @@ export async function GET(request: NextRequest) {
       { status: 200 },
     );
   } catch (error) {
+    // console.log(`/guestList error`, { data: { showDate, method: `GET` }, error })
     return NextResponse.json(
-      { message: "error retrieving guest list" },
+      { message: "error retrieving guest list", error },
       { status: 500 },
     );
   }
@@ -42,6 +29,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: Request) {
   const entry = await request.json();
+  const { name, date } = entry;
 
   try {
     const result = await GuestList.addMerchSeller(entry);
@@ -49,9 +37,10 @@ export async function POST(request: Request) {
       { message: `added ${entry.name} to guest list`, data: result },
       { status: 200 },
     );
-  } catch (err) {
+  } catch (error) {
+    // console.log(`/guestList error`, { data: { date, name , method: `POST` }, error })
     return NextResponse.json(
-      { message: `error adding ${entry.name} to guest list`, err },
+      { message: `error adding ${entry.name} to guest list`, error },
       { status: 500 },
     );
   }
@@ -59,6 +48,7 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   const entry = await request.json();
+  const { name, date } = entry;
 
   try {
     const result = await GuestList.removeMerchSeller(entry);
@@ -66,9 +56,10 @@ export async function DELETE(request: Request) {
       { message: `removed ${entry.name} from guest list`, data: result },
       { status: 200 },
     );
-  } catch (err) {
+  } catch (error) {
+    // console.log(`/guestList error`, { data: { date, name , method: `DELETE` }, error })
     return NextResponse.json(
-      { message: `error removing ${entry.name} from guest list`, err },
+      { message: `error removing ${entry.name} from guest list`, error },
       { status: 500 },
     );
   }

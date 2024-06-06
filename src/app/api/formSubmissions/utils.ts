@@ -8,7 +8,7 @@ export const parseSheetsRowsWithHeaders = ({
   values,
 }: sheets_v4.Schema$ValueRange) => {
   if (!values || values.length < 2) {
-    console.log(values);
+    // console.log(values);
     throw new Error("Invalid values returned from storage");
   }
 
