@@ -33,9 +33,13 @@ export const getAllVolunteerSubmissions = async () => {
   try {
     const sheetsResponse = await getAllRows();
     const data = parseSheetsRowsWithHeaders(sheetsResponse.data);
+
+    console.debug(`FormSubmissions: retrieved form submissions`);
     return Promise.resolve(data);
   } catch (error) {
-    // console.log(`FormSubmissions: Error retrieving all form submissions`, { error });
+    console.error(`FormSubmissions: error retrieving all form submissions`, {
+      error,
+    });
     return Promise.reject(error);
   }
 };
@@ -62,9 +66,15 @@ export const updateEntryConfirmed = async (entry: FormSubmissionEntry) => {
       },
     });
 
+    console.log(`FormSubmissions: marked entry as confirmed`, {
+      data: { date, name },
+    });
     return Promise.resolve(updateResponse.data);
   } catch (error) {
-    // console.log(`FormSubmissions: error updating an entry as confirmed`, { data: { date, name }, error });
+    console.error(`FormSubmissions: error updating an entry as confirmed`, {
+      data: { date, name },
+      error,
+    });
     return Promise.reject(error);
   }
 };
@@ -95,9 +105,15 @@ export const markEntryAcknowledged = async (entry: FormSubmissionEntry) => {
       },
     });
 
+    console.log(`FormSubmissions: marked entry as acknowledged`, {
+      data: { date, name },
+    });
     return Promise.resolve(updateResponse.data);
   } catch (error) {
-    // console.log(`FormSubmissions: error marking entry acknowledged`, { data: {date, name}, error });
+    console.error(`FormSubmissions: error marking entry as acknowledged`, {
+      data: { date, name },
+      error,
+    });
     return Promise.reject(error);
   }
 };
@@ -130,9 +146,15 @@ export const markEntryCanceled = async (entry: FormSubmissionEntry) => {
       },
     });
 
+    console.log(`FormSubmissions: marked entry as canceled`, {
+      data: { date, name },
+    });
     return Promise.resolve(updateResponse.data);
   } catch (error) {
-    // console.log(`FormSubmissions: error marking an entry as canceled`, { data: { date, name }, error });
+    console.error(`FormSubmissions: error marking entry as canceled`, {
+      data: { date, name },
+      error,
+    });
     return Promise.reject(error);
   }
 };
@@ -165,9 +187,15 @@ export const markEntryEmailSent = async (entry: FormSubmissionEntry) => {
       },
     });
 
+    console.log(`FormSubmissions: marked entry as confirmed`, {
+      data: { date, name },
+    });
     return Promise.resolve(updateResponse.data);
   } catch (error) {
-    // console.log(`FormSubmissions: error logging email as sent`, { data: { date, name }, error });
+    console.error(`FormSubmissions: error logging sending of email`, {
+      data: { date, name },
+      error,
+    });
     return Promise.reject(error);
   }
 };

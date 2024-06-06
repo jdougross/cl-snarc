@@ -54,7 +54,7 @@ const parseGuestListFromRecord = (record: Record<FieldSet>) => {
   if (typeof guestList === "string") {
     return parseListByNewLine(guestList);
   } else {
-    throw new Error("Guest List record in unexpected format");
+    throw new Error(`GuestList: error - unexpected format`);
   }
 };
 
@@ -71,12 +71,21 @@ const getRecordByShowDate = async (showDate: string) => {
 
     // TODO: handle if more than one record is returned
     if (!res.length || res.length != 1) {
-      throw new Error("multiple records retrieved from GuestList storage");
+      throw new Error(
+        `GuestList: error multiple records retrieved for date: ${showDate}`,
+      );
     }
 
+    console.debug(`GuestList: record retrieved for show date: ${showDate}`);
     return res[0];
   } catch (error) {
-    throw new Error("error retrieving GuestList record for selected date");
+    console.error(`GuestList: error retrieving guest list`, {
+      data: { showDate },
+      error,
+    });
+    throw new Error(
+      `GuestList: error retrieving guest list for date: ${showDate}`,
+    );
   }
 };
 
@@ -96,6 +105,9 @@ export const addMerchSeller = async (entry: FormSubmissionEntry) => {
     const filteredList = guestList.filter((line) => !line.includes(name));
 
     if (filteredList.length !== guestList.length) {
+      console.log(`GuestList: merch seller already listed on guest list`, {
+        data: { date, name },
+      });
       Promise.resolve();
     } else {
       const newLine = formatGuestListSellerLine(entry);
@@ -110,11 +122,17 @@ export const addMerchSeller = async (entry: FormSubmissionEntry) => {
 
       const updatedGuestList = parseGuestListFromRecord(res[0]);
 
+      console.log(`GuestList: merch seller successfully added to guest list`, {
+        data: { date, name },
+      });
       return Promise.resolve(updatedGuestList);
     }
   } catch (error) {
-    // console.log(`Guestlist: error adding merch seller`, { data: { date, name }, error });
-    return Promise.reject();
+    console.error(`Guestlist: error adding merch seller`, {
+      data: { date, name },
+      error,
+    });
+    return Promise.reject(error);
   }
 };
 
@@ -128,6 +146,9 @@ export const removeMerchSeller = async (entry: FormSubmissionEntry) => {
     const filteredList = guestList.filter((line) => !line.includes(name));
 
     if (filteredList.length === guestList.length) {
+      console.log(`GuestList: merch seller not listed on guest list`, {
+        data: { date, name },
+      });
       Promise.resolve("Guest not present on guest list for this show");
     } else {
       const newList = filteredList.join("\n");
@@ -141,11 +162,17 @@ export const removeMerchSeller = async (entry: FormSubmissionEntry) => {
 
       const updatedGuestList = parseGuestListFromRecord(res[0]);
 
+      console.log(
+        `GuestList: merch seller successfully removed from guest list`,
+        { data: { date, name } },
+      );
       return Promise.resolve(updatedGuestList);
     }
   } catch (error) {
-    // console.log(`Guestlist: error removing merch seller`, { data: { date, name }, error });
-
+    console.error(`Guestlist: error removing merch seller`, {
+      data: { date, name },
+      error,
+    });
     return Promise.reject(error);
   }
 };

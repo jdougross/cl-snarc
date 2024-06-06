@@ -6,7 +6,6 @@ export async function GET() {
     const data = await FormSubmissions.getAllVolunteerSubmissions();
     return NextResponse.json({ data }, { status: 200 });
   } catch (error) {
-    // console.log(`/volunteers error`, { data: { method: `GET` }, error })
     return NextResponse.json(
       { message: "error retrieving form submission records", error },
       { status: 500 },
