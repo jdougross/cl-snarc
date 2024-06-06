@@ -34,12 +34,15 @@ export const getAllVolunteerSubmissions = async () => {
     const sheetsResponse = await getAllRows();
     const data = parseSheetsRowsWithHeaders(sheetsResponse.data);
     return Promise.resolve(data);
-  } catch (err) {
-    return Promise.reject(err);
+  } catch (error) {
+    // console.log(`FormSubmissions: Error retrieving all form submissions`, { error });
+    return Promise.reject(error);
   }
 };
 
 export const updateEntryConfirmed = async (entry: FormSubmissionEntry) => {
+  const { date, name } = entry;
+
   try {
     const sheetsResponse = await getAllRows();
 
@@ -60,8 +63,9 @@ export const updateEntryConfirmed = async (entry: FormSubmissionEntry) => {
     });
 
     return Promise.resolve(updateResponse.data);
-  } catch (err) {
-    return Promise.reject(err);
+  } catch (error) {
+    // console.log(`FormSubmissions: error updating an entry as confirmed`, { data: { date, name }, error });
+    return Promise.reject(error);
   }
 };
 
@@ -70,10 +74,11 @@ export const markEntryAcknowledged = async (entry: FormSubmissionEntry) => {
    * TODO - consider doing this as a timestamp rather than a true t/f
    */
 
+  const { date, name } = entry;
+
   try {
     const sheetsResponse = await getAllRows();
 
-    // console.log({ sheetsResponse })
     const range = findRangeOfCellByHeader({
       entry,
       header: ValidSpreadsheetKeys.ACKNOWLEDGED,
@@ -91,20 +96,20 @@ export const markEntryAcknowledged = async (entry: FormSubmissionEntry) => {
     });
 
     return Promise.resolve(updateResponse.data);
-  } catch (err) {
-    // console.log({ err })
-
-    return Promise.reject(err);
+  } catch (error) {
+    // console.log(`FormSubmissions: error marking entry acknowledged`, { data: {date, name}, error });
+    return Promise.reject(error);
   }
 };
 
 export const markEntryCanceled = async (entry: FormSubmissionEntry) => {
-  const timeStamp = new Date().toISOString();
-
   /**
    * TODO - include id of admin making this cancellation for remote log?
    * TODO - make this timestamp just a date rather than a full ISO to make it easier to manually update if need be?
    */
+
+  const { date, name } = entry;
+  const timeStamp = new Date().toISOString();
 
   try {
     const sheetsResponse = await getAllRows();
@@ -126,18 +131,20 @@ export const markEntryCanceled = async (entry: FormSubmissionEntry) => {
     });
 
     return Promise.resolve(updateResponse.data);
-  } catch (err) {
-    return Promise.reject(err);
+  } catch (error) {
+    // console.log(`FormSubmissions: error marking an entry as canceled`, { data: { date, name }, error });
+    return Promise.reject(error);
   }
 };
 
 export const markEntryEmailSent = async (entry: FormSubmissionEntry) => {
-  const timeStamp = new Date().toISOString();
-
   /**
    * TODO - include id of admin making this cancellation for remote log?
    * TODO - make this timestamp just a date rather than a full ISO to make it easier to manually update if need be?
    */
+
+  const { date, name } = entry;
+  const timeStamp = new Date().toISOString();
 
   try {
     const sheetsResponse = await getAllRows();
@@ -159,7 +166,8 @@ export const markEntryEmailSent = async (entry: FormSubmissionEntry) => {
     });
 
     return Promise.resolve(updateResponse.data);
-  } catch (err) {
-    return Promise.reject(err);
+  } catch (error) {
+    // console.log(`FormSubmissions: error logging email as sent`, { data: { date, name }, error });
+    return Promise.reject(error);
   }
 };

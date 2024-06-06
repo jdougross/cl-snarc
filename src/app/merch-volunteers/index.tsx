@@ -20,7 +20,6 @@ export const MerchVolunteers = () => {
   const [windowWidth, setWindowWidth] = useState(1000);
 
   const getVolunteerData = () => {
-    console.log("fetching volunteer data");
     fetch("/api/volunteers/data", { cache: "no-store" })
       .then((res) => res.json())
       .then(({ data }) => {

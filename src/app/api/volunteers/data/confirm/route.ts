@@ -11,11 +11,11 @@ export async function PUT(request: Request) {
       { message: "Successfully updated confirmed status!", data },
       { status: 200 },
     );
-  } catch (err) {
+  } catch (error) {
     return NextResponse.json(
       {
         message: `error when manually confirming ${entry.name} for ${entry.date}`,
-        err,
+        error,
       },
       { status: 500 },
     );

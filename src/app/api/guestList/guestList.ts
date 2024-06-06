@@ -88,10 +88,9 @@ export const getGuestListByShowDate = async (showDate: string) => {
 export const addMerchSeller = async (entry: FormSubmissionEntry) => {
   // TODO: add a Merch Seller Contact Info page somewhere in here... maybe under Merch Help?
   // TODO: consider adding / comparing +1 if needed?
+  const { date, name } = entry;
 
   try {
-    const { date, name } = entry;
-
     const record = await getRecordByShowDate(date);
     const guestList = parseGuestListFromRecord(record);
     const filteredList = guestList.filter((line) => !line.includes(name));
@@ -113,15 +112,16 @@ export const addMerchSeller = async (entry: FormSubmissionEntry) => {
 
       return Promise.resolve(updatedGuestList);
     }
-  } catch (err) {
+  } catch (error) {
+    // console.log(`Guestlist: error adding merch seller`, { data: { date, name }, error });
     return Promise.reject();
   }
 };
 
 export const removeMerchSeller = async (entry: FormSubmissionEntry) => {
-  try {
-    const { date, name } = entry;
+  const { date, name } = entry;
 
+  try {
     const record = await getRecordByShowDate(date);
 
     const guestList = parseGuestListFromRecord(record);
@@ -143,7 +143,9 @@ export const removeMerchSeller = async (entry: FormSubmissionEntry) => {
 
       return Promise.resolve(updatedGuestList);
     }
-  } catch (err) {
-    return Promise.reject(err);
+  } catch (error) {
+    // console.log(`Guestlist: error removing merch seller`, { data: { date, name }, error });
+
+    return Promise.reject(error);
   }
 };

@@ -10,11 +10,11 @@ export async function PUT(request: Request) {
       { message: "Successfully logged email-send to volunteer", data },
       { status: 200 },
     );
-  } catch (err) {
+  } catch (error) {
     return NextResponse.json(
       {
         message: `error when logging email-send to ${entry.email} for ${entry.date}`,
-        err,
+        error,
       },
       { status: 500 },
     );
