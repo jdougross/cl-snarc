@@ -20,6 +20,10 @@ export const MerchVolunteers = () => {
   const [windowWidth, setWindowWidth] = useState(1000);
 
   const getVolunteerData = () => {
+    /**
+     * TODO: check if actions that partially succeed will prompt refetch
+     */
+
     fetch("/api/volunteers/data", { cache: "no-store" })
       .then((res) => res.json())
       .then(({ data }) => {
