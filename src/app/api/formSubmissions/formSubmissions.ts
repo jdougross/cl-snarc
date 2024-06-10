@@ -5,6 +5,9 @@ import {
 } from "@/app/merch-volunteers/types";
 import { findRangeOfCellByHeader, parseSheetsRowsWithHeaders } from "./utils";
 import { keyFile } from "../../../../keyFile";
+import { Logger as CustomLogger } from "@/app/logger";
+
+const logger = new CustomLogger();
 
 const scopes = ["https://spreadsheets.google.com/feeds/"];
 
@@ -34,10 +37,10 @@ export const getAllVolunteerSubmissions = async () => {
     const sheetsResponse = await getAllRows();
     const data = parseSheetsRowsWithHeaders(sheetsResponse.data);
 
-    console.debug(`FormSubmissions: retrieved form submissions`);
+    logger.debug(`FormSubmissions: retrieved form submissions`);
     return Promise.resolve(data);
   } catch (error) {
-    console.error(`FormSubmissions: error retrieving all form submissions`, {
+    logger.error(`FormSubmissions: error retrieving all form submissions`, {
       error,
     });
     return Promise.reject(error);
@@ -66,12 +69,12 @@ export const updateEntryConfirmed = async (entry: FormSubmissionEntry) => {
       },
     });
 
-    console.log(`FormSubmissions: marked entry as confirmed`, {
+    logger.info(`FormSubmissions: marked entry as confirmed`, {
       data: { date, name },
     });
     return Promise.resolve(updateResponse.data);
   } catch (error) {
-    console.error(`FormSubmissions: error updating an entry as confirmed`, {
+    logger.error(`FormSubmissions: error updating an entry as confirmed`, {
       data: { date, name },
       error,
     });
@@ -105,12 +108,12 @@ export const markEntryAcknowledged = async (entry: FormSubmissionEntry) => {
       },
     });
 
-    console.log(`FormSubmissions: marked entry as acknowledged`, {
+    logger.info(`FormSubmissions: marked entry as acknowledged`, {
       data: { date, name },
     });
     return Promise.resolve(updateResponse.data);
   } catch (error) {
-    console.error(`FormSubmissions: error marking entry as acknowledged`, {
+    logger.error(`FormSubmissions: error marking entry as acknowledged`, {
       data: { date, name },
       error,
     });
@@ -146,12 +149,12 @@ export const markEntryCanceled = async (entry: FormSubmissionEntry) => {
       },
     });
 
-    console.log(`FormSubmissions: marked entry as canceled`, {
+    logger.info(`FormSubmissions: marked entry as canceled`, {
       data: { date, name },
     });
     return Promise.resolve(updateResponse.data);
   } catch (error) {
-    console.error(`FormSubmissions: error marking entry as canceled`, {
+    logger.error(`FormSubmissions: error marking entry as canceled`, {
       data: { date, name },
       error,
     });
@@ -187,12 +190,12 @@ export const markEntryEmailSent = async (entry: FormSubmissionEntry) => {
       },
     });
 
-    console.log(`FormSubmissions: marked entry as confirmed`, {
+    logger.info(`FormSubmissions: marked entry as confirmed`, {
       data: { date, name },
     });
     return Promise.resolve(updateResponse.data);
   } catch (error) {
-    console.error(`FormSubmissions: error logging sending of email`, {
+    logger.error(`FormSubmissions: error logging sending of email`, {
       data: { date, name },
       error,
     });

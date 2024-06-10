@@ -23,8 +23,6 @@ export default async function Page({
     },
   );
 
-  // console.log({ email, date, body, res });
-
   /**
    * TODO: add an errorLanding page
    */

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateConfirmationEmail } from "./utils";
 import nodemailer from "nodemailer";
+import { Logger as CustomLogger } from "@/app/logger";
+
+const logger = new CustomLogger();
 
 export async function POST(request: Request) {
   // TODO: sanitize input here or on FE?
@@ -13,7 +16,7 @@ export async function POST(request: Request) {
   const safeDestination = process.env.SAFE_EMAIL; // TODO: remove when ready
 
   if (!user || !pass) {
-    console.log("app not configured");
+    logger.error("app not configured");
     return NextResponse.json(
       { message: "error configuring mail client" },
       { status: 500 },

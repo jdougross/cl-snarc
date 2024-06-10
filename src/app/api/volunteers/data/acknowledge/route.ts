@@ -13,13 +13,11 @@ export async function POST(request: Request) {
      * TODO: turn "acknowledged" route ino a timestamp thing
      */
 
-    // console.log(`Successfully marked volunteer ${name} on ${date} as acknowledged`);
     return NextResponse.json(
       { message: "volunteer acknowledged email confirmation", data },
       { status: 200 },
     );
   } catch (error) {
-    // console.log(`Acknowledge: error marking volunteer as acknowledged`, { data: { date, name }, error })
     return NextResponse.json(
       {
         message: `error when acknowledging email receipt for ${entry.name} re: ${entry.date}`,
