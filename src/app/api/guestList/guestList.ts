@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import Airtable, { FieldSet, Record } from "airtable";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
 import { formatGuestListSellerLine } from "./utils";
+import { Logger as CustomLogger } from "@/app/logger";
+
+const logger = new CustomLogger();
 
 /**
  * TODO: add merch seller contact field in AT
@@ -76,10 +79,10 @@ const getRecordByShowDate = async (showDate: string) => {
       );
     }
 
-    console.debug(`GuestList: record retrieved for show date: ${showDate}`);
+    logger.debug(`GuestList: record retrieved for show date: ${showDate}`);
     return res[0];
   } catch (error) {
-    console.error(`GuestList: error retrieving guest list`, {
+    logger.error(`GuestList: error retrieving guest list`, {
       data: { showDate },
       error,
     });
@@ -105,7 +108,7 @@ export const addMerchSeller = async (entry: FormSubmissionEntry) => {
     const filteredList = guestList.filter((line) => !line.includes(name));
 
     if (filteredList.length !== guestList.length) {
-      console.log(`GuestList: merch seller already listed on guest list`, {
+      logger.info(`GuestList: merch seller already listed on guest list`, {
         data: { date, name },
       });
       Promise.resolve();
@@ -122,13 +125,13 @@ export const addMerchSeller = async (entry: FormSubmissionEntry) => {
 
       const updatedGuestList = parseGuestListFromRecord(res[0]);
 
-      console.log(`GuestList: merch seller successfully added to guest list`, {
+      logger.info(`GuestList: merch seller successfully added to guest list`, {
         data: { date, name },
       });
       return Promise.resolve(updatedGuestList);
     }
   } catch (error) {
-    console.error(`Guestlist: error adding merch seller`, {
+    logger.error(`Guestlist: error adding merch seller`, {
       data: { date, name },
       error,
     });
@@ -146,7 +149,7 @@ export const removeMerchSeller = async (entry: FormSubmissionEntry) => {
     const filteredList = guestList.filter((line) => !line.includes(name));
 
     if (filteredList.length === guestList.length) {
-      console.log(`GuestList: merch seller not listed on guest list`, {
+      logger.info(`GuestList: merch seller not listed on guest list`, {
         data: { date, name },
       });
       Promise.resolve("Guest not present on guest list for this show");
@@ -162,14 +165,14 @@ export const removeMerchSeller = async (entry: FormSubmissionEntry) => {
 
       const updatedGuestList = parseGuestListFromRecord(res[0]);
 
-      console.log(
+      logger.info(
         `GuestList: merch seller successfully removed from guest list`,
         { data: { date, name } },
       );
       return Promise.resolve(updatedGuestList);
     }
   } catch (error) {
-    console.error(`Guestlist: error removing merch seller`, {
+    logger.error(`Guestlist: error removing merch seller`, {
       data: { date, name },
       error,
     });

@@ -19,7 +19,6 @@ export async function GET(request: NextRequest) {
       { status: 200 },
     );
   } catch (error) {
-    // console.log(`/guestList error`, { data: { showDate, method: `GET` }, error })
     return NextResponse.json(
       { message: "error retrieving guest list", error },
       { status: 500 },
@@ -38,7 +37,6 @@ export async function POST(request: Request) {
       { status: 200 },
     );
   } catch (error) {
-    // console.log(`/guestList error`, { data: { date, name , method: `POST` }, error })
     return NextResponse.json(
       { message: `error adding ${entry.name} to guest list`, error },
       { status: 500 },
@@ -57,7 +55,6 @@ export async function DELETE(request: Request) {
       { status: 200 },
     );
   } catch (error) {
-    // console.log(`/guestList error`, { data: { date, name , method: `DELETE` }, error })
     return NextResponse.json(
       { message: `error removing ${entry.name} from guest list`, error },
       { status: 500 },
