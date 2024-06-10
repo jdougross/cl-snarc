@@ -19,17 +19,15 @@ export const MerchVolunteers = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [windowWidth, setWindowWidth] = useState(1000);
 
-  const getVolunteerData = () => {
+  const getVolunteerData = async () => {
     /**
      * TODO: check if actions that partially succeed will prompt refetch
      */
 
-    fetch("/api/volunteers/data", { cache: "no-store" })
-      .then((res) => res.json())
-      .then(({ data }) => {
-        setData(data);
-        setLoading(false);
-      });
+    const res = await fetch("/api/volunteers/data", { cache: "no-store" });
+    const { data } = await res.json();
+    setData(data);
+    setLoading(false);
   };
 
   // Note - "window" object not available outside of React.useEffect hook
