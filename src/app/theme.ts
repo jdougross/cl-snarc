@@ -64,4 +64,11 @@ export const theme = extendTheme({
   colors: {
     brand: blue,
   },
+  fontSizes: {
+    xs: "6pxpx",
+    sm: "8px",
+    md: "10px",
+    lg: "12px",
+    xl: "14px",
+  },
 });

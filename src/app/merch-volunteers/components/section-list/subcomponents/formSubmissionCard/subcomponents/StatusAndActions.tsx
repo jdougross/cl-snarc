@@ -18,7 +18,6 @@ export const StatusAndActions = (props: { entry: FormSubmissionEntry }) => {
     // h: "100%",
     w: "100%",
     fontWeight: "semibold",
-    fontSize: "sm",
     borderRadius: 4,
     alignItems: "center",
     justifyContent: "center",

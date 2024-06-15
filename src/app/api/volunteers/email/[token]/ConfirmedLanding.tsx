@@ -61,7 +61,6 @@ export const ConfirmedLanding = ({ date }: { date: string }) => {
           />
           <Flex
             flexDirection="column"
-            fontSize={"medium"}
             zIndex={2}
             bg="white"
             position={"absolute"}
@@ -86,7 +85,6 @@ export const ConfirmedLanding = ({ date }: { date: string }) => {
         >
           <Flex
             flexDirection="column"
-            fontSize={"x-small"}
             zIndex={2}
             bg="white"
             mt={"5%"}

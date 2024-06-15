@@ -70,7 +70,7 @@ export const MerchVolunteers = () => {
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
-            fontSize="xs"
+            fontSize="md"
             {...sizeProps}
           >
             <SectionList sectionListData={byDate} />

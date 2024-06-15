@@ -8,8 +8,8 @@ export const VolunteerDetails = (props: { entry: FormSubmissionEntry }) => {
    */
 
   return (
-    <Box fontSize={"xs"}>
-      <Text fontWeight={"semibold"} fontSize={"sm"} pb={4}>
+    <Box>
+      <Text fontWeight={"semibold"} fontSize={"lg"} pb={4}>
         {entry.name}
       </Text>
       <Text>{entry.email}</Text>
