@@ -2,7 +2,7 @@ import { EmailConfirmationButton } from "./EmailConfirmationButton";
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
 import { VolunteerStatus } from "./VolunteerStatus";
 import { CancelVolunteerButton } from "./CancelVolunteerButton";
-import { Box } from "@chakra-ui/react";
+import { VStack } from "@chakra-ui/react";
 
 export const StatusAndActions = (props: { entry: FormSubmissionEntry }) => {
   const { entry } = props;
@@ -15,7 +15,6 @@ export const StatusAndActions = (props: { entry: FormSubmissionEntry }) => {
   const style = {
     minH: 10,
     my: 1,
-    // h: "100%",
     w: "100%",
     fontWeight: "semibold",
     borderRadius: 4,
@@ -24,7 +23,7 @@ export const StatusAndActions = (props: { entry: FormSubmissionEntry }) => {
   };
 
   return (
-    <Box h={"100%"} w={"100%"}>
+    <VStack h={"100%"} w={"100%"}>
       <VolunteerStatus entry={entry} style={style} />
       {!entry.acknowledged && (
         <EmailConfirmationButton active={true} entry={entry} style={style} />
@@ -32,6 +31,6 @@ export const StatusAndActions = (props: { entry: FormSubmissionEntry }) => {
       {!entry.canceled && (
         <CancelVolunteerButton active={true} entry={entry} style={style} />
       )}
-    </Box>
+    </VStack>
   );
 };

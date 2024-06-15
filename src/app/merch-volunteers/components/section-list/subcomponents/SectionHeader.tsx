@@ -1,6 +1,6 @@
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
 import { CheckCircleIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
-import { Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import { formatHeaderDate, formatVenueName } from "./utils";
 
 export const SectionHeader = (props: {
@@ -37,23 +37,22 @@ export const SectionHeader = (props: {
   return (
     <Flex
       w="100%"
-      alignItems={"flex-start"}
+      alignItems={"center"}
       justifyContent={"space-between"}
       textAlign={"left"}
     >
-      <Text w={"15%"} mx={2}>
-        {formattedDate}
-      </Text>
-
-      <Flex direction="column" w={"25%"} mx={2}>
-        <Text>{section.city}</Text>
-        <Text>{formattedVenueName}</Text>
-      </Flex>
+      <VStack align={"left"} w={"25%"} mx={2}>
+        <Text fontWeight={"semibold"}>{formattedDate}</Text>
+        <Box>
+          <Text>{section.city}</Text>
+          <Text>{formattedVenueName}</Text>
+        </Box>
+      </VStack>
 
       <Flex
         direction={"column"}
         justifyContent={"space-between"}
-        w={"20%"}
+        w={"22%"}
         mx={2}
       >
         {/**
