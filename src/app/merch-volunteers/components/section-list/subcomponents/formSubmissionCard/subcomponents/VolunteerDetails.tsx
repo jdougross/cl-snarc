@@ -8,13 +8,13 @@ export const VolunteerDetails = (props: { entry: FormSubmissionEntry }) => {
    */
 
   return (
-    <Box fontSize={"xs"}>
-      <Text fontWeight={"semibold"} fontSize={"sm"} pb={4}>
+    <Box>
+      <Text fontWeight={"semibold"} fontSize={"lg"} pb={2}>
         {entry.name}
       </Text>
-      <Text>{entry.email}</Text>
-      <Text>{entry.phone}</Text>
-      <Text>{`Plus One?: ${entry.plusOne ? "Yes" : "No"}`}</Text>
+      <Text py={1}>{entry.email}</Text>
+      <Text py={1}>{entry.phone}</Text>
+      <Text py={1}>{`Plus One?: ${entry.plusOne ? "Yes" : "No"}`}</Text>
     </Box>
   );
 };

@@ -17,7 +17,7 @@ export const MerchVolunteers = () => {
   const [isLoading, setLoading] = useState(true);
   const [modalEntry, setModalEntry] = useState({} as FormSubmissionEntry);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [windowWidth, setWindowWidth] = useState(1000);
+  const [windowWidth, setWindowWidth] = useState(0);
 
   const getVolunteerData = async () => {
     /**
@@ -30,13 +30,10 @@ export const MerchVolunteers = () => {
     setLoading(false);
   };
 
-  // Note - "window" object not available outside of React.useEffect hook
-  React.useEffect(() => {
-    window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
-  }, []);
-
   useEffect(() => {
     getVolunteerData();
+    setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
   }, []);
 
   const openEmailModal = (e: FormSubmissionEntry) => {
@@ -47,19 +44,22 @@ export const MerchVolunteers = () => {
   if (!data || isLoading) return <div>Loading...</div>;
 
   const { byDate } = formatSpreadsheetData(data);
+
   /**
    * TODO: margins on overall section should be responsive to dimensions
    */
 
   const narrowScreen = {
     w: "100%",
+    minW: 450,
   };
 
   const wideScreen = {
     w: "70%",
+    maxW: 1000,
   };
 
-  const sizeProps = windowWidth > 1000 ? wideScreen : narrowScreen;
+  const sizeProps = windowWidth > 800 ? wideScreen : narrowScreen;
 
   return (
     <FetchContext.Provider value={getVolunteerData}>
@@ -70,7 +70,8 @@ export const MerchVolunteers = () => {
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
-            fontSize="xs"
+            fontSize="md"
+            p={5}
             {...sizeProps}
           >
             <SectionList sectionListData={byDate} />

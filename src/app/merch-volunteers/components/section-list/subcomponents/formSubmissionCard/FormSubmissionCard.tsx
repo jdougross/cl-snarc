@@ -28,7 +28,7 @@ export const FormSubmissionCard = (props: {
         flexDirection="column"
         justifyContent="flex-start"
         h="100%"
-        w={"25%"}
+        minW={"25%"}
         p={2}
       >
         <VolunteerDetails entry={entry} />
@@ -36,12 +36,11 @@ export const FormSubmissionCard = (props: {
       <Flex
         flexDirection="column"
         justifyContent="flex-start"
-        maxW={400} // NOTE: related to minWidth of MerchVolunteers component
-        w="100%"
-        h="100%"
+        // maxW={400} // NOTE: related to minWidth of MerchVolunteers component
+        // w="100%"
+        minW="40%"
+        // minH={175}
         p={2}
-        mr={2}
-        m={4}
         fontStyle={"italic"}
         fontWeight={"light"}
       >
@@ -50,8 +49,9 @@ export const FormSubmissionCard = (props: {
       <Flex
         flexDirection="column"
         justifyContent="space-between"
-        m={4}
-        w={"30%"}
+        my={4}
+        mx={2}
+        minW={"30%"}
       >
         {!isDuplicate && <StatusAndActions entry={entry} />}
       </Flex>
