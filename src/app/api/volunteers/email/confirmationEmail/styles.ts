@@ -1,12 +1,12 @@
-export const backgroundContainerStyle = {
+export const backgroundContainer = {
   display: "flex",
-  "flex-direction": "row",
+  flexDirection: "row" as "row",
   backgroundColor: "#DDD",
 };
 
-export const contentSectionStyle = {
+export const contentSection = {
   display: "flex",
-  "flex-direction": "column",
+  flexDirection: "column" as "column",
   backgroundColor: "#FFF",
   fontFamily: "sans-serif",
   marginTop: "5%",
@@ -16,6 +16,27 @@ export const contentSectionStyle = {
   padding: "3%",
 };
 
-export const linkStyle = {
+export const link = {
+  fontWeight: 600,
+};
+
+export const acknowledgeButtonClickable = {
+  textDecoration: "none",
+};
+
+export const acknowledgeButton = {
+  backgroundColor: "#159",
+  display: "inline-block",
+  cursor: "pointer",
+  borderWidth: 0,
+  borderRadius: "10px",
+  padding: "2px",
+  paddingLeft: "40px",
+  paddingRight: "40px",
+  margin: "5px",
+};
+
+export const acknowledgeButtonText = {
+  color: "#FFF",
   fontWeight: 600,
 };

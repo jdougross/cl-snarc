@@ -14,17 +14,19 @@ const ConfirmationEmail = ({ entry }: { entry: FormSubmissionEntry }) => {
    */
 
   return (
-    <div style={styles.backgroundContainerStyle}>
-      <div style={styles.contentSectionStyle}>
+    <div style={styles.backgroundContainer}>
+      <div style={styles.contentSection}>
         <div>
           <h2>{email.headingText}</h2>
 
           <p>{email.greetingLine}</p>
           <p>{email.confirmationLine}</p>
 
-          <div>
-            <a href={webhookUrl} style={styles.linkStyle}>
-              {email.acknowledgeLink}
+          <div style={styles.acknowledgeButton}>
+            <a href={webhookUrl}>
+              <p style={styles.acknowledgeButtonText}>
+                {email.acknowledgeLink}
+              </p>
             </a>
           </div>
 
@@ -32,7 +34,7 @@ const ConfirmationEmail = ({ entry }: { entry: FormSubmissionEntry }) => {
 
           <p>
             {email.timingLine}
-            <a href={info.volunteerDetailsUrl} style={styles.linkStyle}>
+            <a href={info.volunteerDetailsUrl} style={styles.link}>
               {info.volunteerDetailsDisplayUrl}
             </a>
             {`.`}
@@ -56,7 +58,8 @@ export const generateConfirmationEmail = async (entry: FormSubmissionEntry) => {
   const html = ReactDOMServer.renderToString(
     <ConfirmationEmail entry={entry} />,
   );
-  const subject = `CONFIRMED! Thank you for volunteering with Carbon Leaf`;
+  const subject = `CONFIRMED! Thank you for volunteering with Carbon Leaf - ${entry.date}`;
 
+  console.log(html);
   return { html, subject };
 };

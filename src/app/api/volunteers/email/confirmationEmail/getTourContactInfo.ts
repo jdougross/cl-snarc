@@ -23,10 +23,10 @@ export const getTourContactInfo = () => {
     throw new Error("Missing Tour Manager Contact Config");
   }
 
-  const volunteerDetailsDisplayUrl = volunteerDetailsUrl.replace(
-    `http://www.`,
-    ``,
-  );
+  /**
+   * TODO: remote config
+   */
+  const volunteerDetailsDisplayUrl = `carbonleaf.com/volunteer-details`;
 
   return {
     tourContactEmail,
