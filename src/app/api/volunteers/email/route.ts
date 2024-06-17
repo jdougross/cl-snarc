@@ -10,6 +10,7 @@ export async function POST(request: NextRequest) {
   // validate email address?
 
   const entry = await request.json();
+  const { date, name } = entry;
 
   const user = process.env.GOOGLE_APP_EMAIL;
   const pass = process.env.GOOGLE_APP_PASS;
@@ -45,14 +46,21 @@ export async function POST(request: NextRequest) {
 
   try {
     const mailerResponse = await transporter.sendMail(mailOptions);
-    /**
-     * TODO: log email
-     */
+
+    logger.info(`Email: confirmation email successfully sent`, {
+      data: { date, name },
+    });
+
     return NextResponse.json(
       { message: "email successfully sent" },
       { status: 200 },
     );
   } catch (error) {
+    logger.error(`Email: error sending confirmation email`, {
+      data: { date, name },
+      error,
+    });
+
     return NextResponse.json(
       { message: "error sending email", error },
       { status: 500 },
