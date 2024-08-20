@@ -4,6 +4,9 @@ import { auth } from "@/app/auth";
 /**
  * TODO: currently matches all routes - refine
  */
+export const config = {
+  matcher: ["/api/formSubmissions", "/api/guestList", "/api/volunteers"],
+};
 
 export const middleware = async (req: NextRequest) => {
   const session = await auth();
