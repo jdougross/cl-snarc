@@ -23,7 +23,7 @@ const ConfirmationEmail = ({ entry }: { entry: FormSubmissionEntry }) => {
           <p>{email.confirmationLine}</p>
 
           <div style={styles.acknowledgeButton}>
-            <a href={webhookUrl}>
+            <a href={webhookUrl} style={styles.acknowledgeButtonLinkStyle}>
               <p style={styles.acknowledgeButtonText}>
                 {email.acknowledgeLink}
               </p>
@@ -60,6 +60,5 @@ export const generateConfirmationEmail = async (entry: FormSubmissionEntry) => {
   );
   const subject = `CONFIRMED! Thank you for volunteering with Carbon Leaf - ${entry.date}`;
 
-  console.log(html);
   return { html, subject };
 };

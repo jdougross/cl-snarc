@@ -57,7 +57,7 @@ const parseGuestListFromRecord = (record: Record<FieldSet>) => {
   if (typeof guestList === "string") {
     return parseListByNewLine(guestList);
   } else {
-    throw new Error(`GuestList: error - unexpected format`);
+    return [] as string[];
   }
 };
 

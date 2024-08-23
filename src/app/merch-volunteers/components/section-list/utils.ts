@@ -17,10 +17,5 @@ export const shouldDisplaySection = (
     return false;
   }
 
-  // TODO: remove when sending real emails
-  // if (!entries.some((entry) => entry.email === "jdougross@gmail.com")) {
-  //   return false;
-  // }
-
   return true;
 };

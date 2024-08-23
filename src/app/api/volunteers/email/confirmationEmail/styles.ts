@@ -25,7 +25,7 @@ export const acknowledgeButtonClickable = {
 };
 
 export const acknowledgeButton = {
-  backgroundColor: "#159",
+  backgroundColor: "#0B2273",
   display: "inline-block",
   cursor: "pointer",
   borderWidth: 0,
@@ -34,6 +34,10 @@ export const acknowledgeButton = {
   paddingLeft: "40px",
   paddingRight: "40px",
   margin: "5px",
+};
+
+export const acknowledgeButtonLinkStyle = {
+  textDecoration: "none",
 };
 
 export const acknowledgeButtonText = {

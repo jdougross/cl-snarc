@@ -9,6 +9,12 @@ export const config = {
 };
 
 export const middleware = async (req: NextRequest) => {
+  const env = process.env.NODE_ENV;
+
+  if (env === "development") {
+    return NextResponse.next();
+  }
+
   const session = await auth();
 
   if (session && session.user) {
