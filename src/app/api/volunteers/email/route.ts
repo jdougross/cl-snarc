@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
   // validate email address?
 
   const entry = await request.json();
-  const { date, name } = entry;
+  const { date, email, name } = entry;
 
   const user = process.env.GOOGLE_APP_EMAIL;
   const pass = process.env.GOOGLE_APP_PASS;
@@ -37,18 +37,28 @@ export async function POST(request: NextRequest) {
   const confirmationEmail = await generateConfirmationEmail(entry);
   const { html, subject } = confirmationEmail;
 
+  // SAFEGUARD FOR DEV MDOE
+  const toEmail =
+    process.env.NODE_ENV === "development" ? safeDestination : email;
+
   const mailOptions = {
     from: user,
-    to: safeDestination, // TODO: remove when ready
+    to: toEmail,
+    // to: safeDestination, // TODO: remove when ready
     subject,
     html,
   };
 
   try {
+    // TODO: remove
+    // console.log({ mailOptions });
+
     const mailerResponse = await transporter.sendMail(mailOptions);
 
+    // TODO: Check if MailerResponse is OK?
+
     logger.info(`Email: confirmation email successfully sent`, {
-      data: { date, name },
+      data: { date, name, mailerResponse },
     });
 
     return NextResponse.json(
