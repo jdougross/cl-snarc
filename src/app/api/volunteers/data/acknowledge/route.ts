@@ -4,7 +4,9 @@ import * as FormSubmissions from "@/app/api/formSubmissions/formSubmissions";
 // Update the "acknowledged" field in storage
 export async function POST(request: Request) {
   const entry = await request.json();
-  const { date, name } = entry;
+  const { date, email } = entry;
+
+  console.log("TRYING TO ACKNOWLEDGE", { entry });
 
   try {
     const data = await FormSubmissions.markEntryAcknowledged(entry);
@@ -20,7 +22,7 @@ export async function POST(request: Request) {
   } catch (error) {
     return NextResponse.json(
       {
-        message: `error when acknowledging email receipt for ${entry.name} re: ${entry.date}`,
+        message: `error when acknowledging email receipt for ${email} re: ${date}`,
         error,
       },
       { status: 500 },

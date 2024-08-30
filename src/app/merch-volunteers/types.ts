@@ -1,6 +1,6 @@
 export enum ValidSpreadsheetKeys {
   SUBMITTED = "Submitted On",
-  DATE_CITY = "Date  City",
+  DATE_CITY = "Show Date  City",
   NAME = "Name",
   PHONE = "Phone",
   EMAIL = "Email Address",
