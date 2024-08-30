@@ -13,7 +13,7 @@ interface SpreadsheetDataOutput {
 }
 
 export const formatSubmissionEntry = (entry: Record<string, string>) => {
-  const dateCity = entry["Date  City"];
+  const dateCity = entry[ValidSpreadsheetKeys.DATE_CITY];
   const split = dateCity.split(" ");
   const stateIndex =
     split.findIndex((e) => e.length === 2 && e === e.toUpperCase()) + 1;
