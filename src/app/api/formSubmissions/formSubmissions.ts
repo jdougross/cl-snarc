@@ -87,7 +87,7 @@ export const markEntryAcknowledged = async (entry: FormSubmissionEntry) => {
    * TODO - consider doing this as a timestamp rather than a true t/f
    */
 
-  const { date, name } = entry;
+  const { date, name, email } = entry;
 
   try {
     const sheetsResponse = await getAllRows();
@@ -109,7 +109,7 @@ export const markEntryAcknowledged = async (entry: FormSubmissionEntry) => {
     });
 
     logger.info(`FormSubmissions: marked entry as acknowledged`, {
-      data: { date, name },
+      data: { date, name, email },
     });
     return Promise.resolve(updateResponse.data);
   } catch (error) {
