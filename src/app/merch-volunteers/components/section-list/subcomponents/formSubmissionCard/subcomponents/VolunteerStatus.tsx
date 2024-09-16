@@ -7,11 +7,8 @@ export const VolunteerStatus = (props: {
 }) => {
   const { entry } = props;
 
-  const text = entry.canceled
-    ? "Canceled"
-    : entry.acknowledged
-      ? "Confirmed"
-      : "Awaiting Response";
+  // TODO: bug: duplicate entries miss "emailed" field
+  const text = deriveStatusText(entry);
 
   const canceled = {
     textColor: "brand.text.secondary",
@@ -44,4 +41,12 @@ export const VolunteerStatus = (props: {
       <Text>{text}</Text>
     </Flex>
   );
+};
+
+const deriveStatusText = (entry: FormSubmissionEntry) => {
+  if (entry.canceled) return "Canceled";
+  if (entry.acknowledged) return "Acknowledged";
+  if (entry.emailed) return "Awaiting Response";
+  if (entry.confirmed) return "Confirmed (manual)";
+  else return "";
 };
