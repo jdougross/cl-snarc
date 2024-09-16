@@ -44,6 +44,9 @@ export const ConfirmedLanding = ({ date }: { date: string }) => {
 
   return (
     <ChakraProvider>
+      <head>
+        <title>Carbon Leaf</title>
+      </head>
       {displayHorizontal ? (
         <Flex
           bgGradient={bgGradient}

@@ -14,7 +14,7 @@ export interface SectionData {
 export const SectionList = (props: {
   sectionListData: Record<string, SectionData>;
 }) => {
-  const [hidePastDates, setHidePastDates] = useState(false);
+  const [hidePastDates, setHidePastDates] = useState(true);
   const { sectionListData } = props;
   const sectionsInOrder = Object.keys(sectionListData).sort((a, b) =>
     sortSectionsByDate(a, b),
@@ -31,11 +31,9 @@ export const SectionList = (props: {
   return (
     <Flex flexDirection="column" w="100%">
       <Flex flexDirection="row">
-        {/* <Button
-          onClick={() => setHidePastDates(!hidePastDates)}
-        >
+        <Button onClick={() => setHidePastDates(!hidePastDates)}>
           {hidePastDates ? "Show Past Dates" : "Hide Past Dates"}
-        </Button> */}
+        </Button>
       </Flex>
       <SectionsAccordion
         sectionsToDisplay={sectionsToDisplay}
