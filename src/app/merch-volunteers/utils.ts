@@ -47,6 +47,7 @@ export const formatSubmissionEntry = (entry: Record<string, string>) => {
     confirmed,
     acknowledged,
     canceled: entry[ValidSpreadsheetKeys.CANCELED],
+    emailed: entry[ValidSpreadsheetKeys.EMAILED],
   };
 
   return formatted;

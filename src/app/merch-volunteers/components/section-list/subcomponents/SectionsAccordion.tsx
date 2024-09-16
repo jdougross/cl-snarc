@@ -23,13 +23,28 @@ export const SectionsAccordion = (props: {
         const { section, entries } = sectionListData[sectionKey];
 
         const emails = new Set();
-        entries.forEach((e) => {
+        const duplicates = new Set();
+        entries.forEach((entry) => {
           let isDuplicate = false;
-          if (emails.has(e.email)) {
+          if (emails.has(entry.email)) {
             isDuplicate = true;
+            duplicates.add(entry.email);
           }
-          emails.add(e.email);
-          Object.assign(e, { isDuplicate });
+          emails.add(entry.email);
+          Object.assign(entry, { isDuplicate });
+        });
+
+        duplicates.forEach((email) => {
+          const multipleEntries = entries.filter((e) => e.email === email);
+          const confirmed = multipleEntries.some((e) => e.confirmed);
+          const acknowledged = multipleEntries.some((e) => e.acknowledged);
+          const canceled = multipleEntries.some((e) => e.canceled);
+
+          entries.forEach((e) => {
+            if (e.email === email) {
+              Object.assign(e, { confirmed, acknowledged, canceled });
+            }
+          });
         });
 
         return (
