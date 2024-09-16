@@ -1,5 +1,10 @@
 import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
-import { CheckCircleIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
+import {
+  CheckCircleIcon,
+  EmailIcon,
+  QuestionOutlineIcon,
+  WarningIcon,
+} from "@chakra-ui/icons";
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import { formatHeaderDate, formatVenueName } from "./utils";
 
@@ -26,6 +31,11 @@ export const SectionHeader = (props: {
 
     return acc + (cur.plusOne ? 2 : 1);
   }, 0);
+
+  const canceled = entries.some((e) => e.canceled);
+  const confirmed = entries.some((e) => e.confirmed);
+  const acknowledged = entries.some((e) => e.acknowledged);
+  const awaiting = entries.some((e) => e.confirmed && !e.acknowledged);
 
   /*
     TODO: add logic and display for following:
@@ -84,14 +94,30 @@ export const SectionHeader = (props: {
           // TODO: logic for "email sent vs no action"
           // TODO: logic for "volunteer canceled"
           <>
-            <Flex alignItems={"center"}>
-              <CheckCircleIcon color="brand.icon.primary" />
-              <Text mx={1}>Confirmed</Text>
-            </Flex>
-            <Flex alignItems={"center"}>
-              <QuestionOutlineIcon color="brand.icon.primary" />
-              <Text mx={1}>Awaiting</Text>
-            </Flex>
+            {canceled && (
+              <Flex alignItems={"center"}>
+                <WarningIcon color="red.500" />
+                <Text mx={1}>Canceled</Text>
+              </Flex>
+            )}
+            {acknowledged && (
+              <Flex alignItems={"center"}>
+                <CheckCircleIcon color="brand.icon.primary" />
+                <Text mx={1}>Acknowledged</Text>
+              </Flex>
+            )}
+            {confirmed && (
+              <Flex alignItems={"center"}>
+                <EmailIcon color="brand.icon.primary" />
+                <Text mx={1}>Email Sent</Text>
+              </Flex>
+            )}
+            {awaiting && (
+              <Flex alignItems={"center"}>
+                <QuestionOutlineIcon color="brand.icon.primary" />
+                <Text mx={1}>Awaiting</Text>
+              </Flex>
+            )}
           </>
         )}
       </Flex>
