@@ -1,7 +1,10 @@
 "use client";
 
 import { Flex, useDisclosure } from "@chakra-ui/react";
-import { SectionList } from "./components/section-list/SectionList";
+import {
+  SectionData,
+  SectionList,
+} from "./components/section-list/SectionList";
 import { formatSpreadsheetData } from "./utils";
 
 import * as React from "react";
@@ -13,7 +16,9 @@ export const FetchContext = createContext(() => {});
 export const ContactContext = createContext((e: FormSubmissionEntry) => {});
 
 export const MerchVolunteers = () => {
-  const [data, setData] = useState(null);
+  const [sectionListData, setSectionListData] = useState(
+    undefined as Record<string, SectionData> | undefined,
+  );
   const [isLoading, setLoading] = useState(true);
   const [modalEntry, setModalEntry] = useState({} as FormSubmissionEntry);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -24,9 +29,19 @@ export const MerchVolunteers = () => {
      * TODO: check if actions that partially succeed will prompt refetch
      */
 
-    const res = await fetch("/api/volunteers/data", { cache: "no-store" });
-    const { data } = await res.json();
-    setData(data);
+    const volunteerResponse = await fetch("/api/volunteers/data", {
+      cache: "no-store",
+    });
+    const { data: volunteerData } = await volunteerResponse.json();
+
+    const showsResponse = await fetch("/api/shows", { cache: "no-store" });
+    const { data: showsData } = await showsResponse.json();
+
+    console.log({ volunteerData });
+    console.log({ showsData });
+
+    const { byDate } = formatSpreadsheetData({ volunteerData, showsData });
+    setSectionListData(byDate);
     setLoading(false);
   };
 
@@ -41,9 +56,7 @@ export const MerchVolunteers = () => {
     !!e && onOpen();
   };
 
-  if (!data || isLoading) return <div>Loading...</div>;
-
-  const { byDate } = formatSpreadsheetData(data);
+  if (!sectionListData || isLoading) return <div>Loading...</div>;
 
   /**
    * TODO: margins on overall section should be responsive to dimensions
@@ -74,7 +87,7 @@ export const MerchVolunteers = () => {
             p={5}
             {...sizeProps}
           >
-            <SectionList sectionListData={byDate} />
+            <SectionList sectionListData={sectionListData} />
             <EmailModal entry={modalEntry} isOpen={isOpen} onClose={onClose} />
           </Flex>
         </Flex>
