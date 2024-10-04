@@ -1,6 +1,7 @@
-import Airtable, { FieldSet } from "airtable";
+import Airtable from "airtable";
 import { Logger as CustomLogger } from "@/app/logger";
 import { formatDateString } from "@/app/merch-volunteers/utils";
+import { AirTableFields, MerchStatusValue } from "../guestList/guestList";
 
 const logger = new CustomLogger();
 
@@ -20,9 +21,11 @@ Airtable.configure({
 
 const base = Airtable.base(baseId);
 
-export enum Fields {
-  DATE = "Date",
-}
+const reasonsSellerNotNeeded = [
+  MerchStatusValue.PRIVATE,
+  MerchStatusValue.NO_MERCH,
+  MerchStatusValue.VENUE_SELLS,
+];
 
 type ShowDateListKey = "location" | "venue" | "date";
 type ShowDateList = Record<ShowDateListKey, string>[];
@@ -31,7 +34,7 @@ export const getAllShowDates = async () => {
   try {
     const res = await base(baseName)
       .select({
-        filterByFormula: `DATESTR(${Fields.DATE}) > '2024-01-01'`,
+        filterByFormula: `DATESTR(${AirTableFields.DATE}) > '2024-01-01'`,
       })
       .firstPage();
 
@@ -39,10 +42,20 @@ export const getAllShowDates = async () => {
 
     res.forEach((value) => {
       const {
-        Location: LocationField,
-        Venue: VenueField,
-        Date: DateField,
+        [AirTableFields.LOCATION]: LocationField,
+        [AirTableFields.VENUE]: VenueField,
+        [AirTableFields.DATE]: DateField,
+        [AirTableFields.MERCH_STATUS]: MerchStatusField,
       } = value.fields;
+
+      // If AT says no merch sales needed, don't list in SNARC
+      // MerchStatusField is Mulit-Select (array), but should only have one entry
+      if (
+        Array.isArray(MerchStatusField) &&
+        MerchStatusField.some((value) => reasonsSellerNotNeeded.includes(value))
+      ) {
+        return;
+      }
 
       // AirTable Dates are 2024-09-25 - we need them as 09/25/2024
 
@@ -66,7 +79,6 @@ export const getAllShowDates = async () => {
       return Number(new Date(a.date)) - Number(new Date(b.date));
     });
 
-    console.log(`data returned from show dates list`);
     return data;
   } catch (error) {
     logger.error(`Shows: error retrieving shows list`, {

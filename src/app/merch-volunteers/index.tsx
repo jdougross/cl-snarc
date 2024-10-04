@@ -37,9 +37,6 @@ export const MerchVolunteers = () => {
     const showsResponse = await fetch("/api/shows", { cache: "no-store" });
     const { data: showsData } = await showsResponse.json();
 
-    console.log({ volunteerData });
-    console.log({ showsData });
-
     const { byDate } = formatSpreadsheetData({ volunteerData, showsData });
     setSectionListData(byDate);
     setLoading(false);

@@ -2,9 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import * as Shows from "./shows";
 
 export async function GET(request: NextRequest) {
-  // TODO: get show date from request params
-  const showDate = "04/11/2024";
-
   try {
     const showDates = await Shows.getAllShowDates();
 

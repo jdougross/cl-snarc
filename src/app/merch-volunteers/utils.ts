@@ -63,7 +63,6 @@ export const formatDateString = (s: string) => {
   const mm = `0${d.getMonth() + 1}`.slice(-2);
   const dd = `0${d.getDate()}`.slice(-2);
 
-  console.log(`${s} ==> ${mm}/${dd}/${yyyy}`);
   return `${mm}/${dd}/${yyyy}`;
 };
 
