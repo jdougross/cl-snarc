@@ -33,9 +33,12 @@ export const SectionHeader = (props: {
   }, 0);
 
   const canceled = entries.some((e) => e.canceled);
-  const emailed = entries.some((e) => e.emailed);
-  const acknowledged = entries.some((e) => e.acknowledged);
-  const awaiting = entries.some((e) => e.confirmed && !e.acknowledged);
+  // const emailed = entries.some((e) => e.emailed);
+  const acknowledged = entries.some((e) => e.acknowledged && !e.canceled);
+  const awaiting = entries.some(
+    (e) => !e.canceled && e.confirmed && !e.acknowledged,
+  );
+  // const allConfirmedVolunteerssAcknowledged = (acknowledged && entries.every((e) => e.confirmed === e.acknowledged));
 
   /*
     TODO: add logic and display for following:
@@ -90,7 +93,7 @@ export const SectionHeader = (props: {
         w={"20%"}
         ml={8}
       >
-        <>
+        <div>
           {canceled && (
             <Flex alignItems={"center"}>
               <WarningIcon color="red.500" />
@@ -103,19 +106,19 @@ export const SectionHeader = (props: {
               <Text mx={1}>Acknowledged</Text>
             </Flex>
           )}
-          {emailed && (
+          {/* {emailed && !allConfirmedVolunteerssAcknowledged && !awaiting && (
             <Flex alignItems={"center"}>
               <EmailIcon color="brand.icon.primary" />
               <Text mx={1}>Email Sent</Text>
             </Flex>
-          )}
+          )} */}
           {awaiting && (
             <Flex alignItems={"center"}>
               <QuestionOutlineIcon color="brand.icon.primary" />
               <Text mx={1}>Awaiting</Text>
             </Flex>
           )}
-        </>
+        </div>
       </Flex>
     </Flex>
   );
