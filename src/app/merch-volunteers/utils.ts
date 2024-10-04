@@ -53,8 +53,25 @@ export const formatSubmissionEntry = (entry: Record<string, string>) => {
   return formatted;
 };
 
+export const formatDateString = (s: string) => {
+  if (!s) return undefined;
+
+  // JS does not like dates at format yyyy-mm-dd due to TZ offset
+
+  const d = new Date(s.replaceAll("-", "/"));
+  const yyyy = d.getFullYear();
+  const mm = `0${d.getMonth() + 1}`.slice(-2);
+  const dd = `0${d.getDate()}`.slice(-2);
+
+  return `${mm}/${dd}/${yyyy}`;
+};
+
 export const formatSpreadsheetData = (
-  data: Record<string, string>[],
+  // data: Record<string, string>[],
+  data: {
+    volunteerData: Record<string, string>[];
+    showsData: Record<string, string>[];
+  },
 ): SpreadsheetDataOutput => {
   // separate schema validation for spreadsheet data?
   // Header row has same number of keys as other entries?
@@ -62,11 +79,28 @@ export const formatSpreadsheetData = (
   // sort the entries by submittedOn?  or is this done by default?
   // should sectionList be nested array, or object with keys?  where do we sort?
 
+  const { volunteerData, showsData } = data;
   const byDate = {} as Record<string, SectionListData>;
+
+  const showsByDate = new Map();
+  showsData.forEach((e) => showsByDate.set(e.date, e));
+
+  showsData.forEach((e) => {
+    byDate[e.date] = {
+      section: {
+        city: e.location,
+        date: e.date,
+        venue: e.venue,
+      },
+      entries: [] as FormSubmissionEntry[],
+    };
+  });
 
   // get a better setup for header data - sort by date, but have access to date, city, etc
 
-  const entries = data.map((v) => formatSubmissionEntry(v));
+  const entries = volunteerData.map((v) => formatSubmissionEntry(v));
+
+  // TODO: parse showsData for available shows?
 
   entries.forEach((entry) => {
     const { city, date, dateCity, venue } = entry;
@@ -76,7 +110,7 @@ export const formatSpreadsheetData = (
         section: {
           city,
           date,
-          dateCity,
+          // dateCity,
           venue,
         },
         entries: [] as FormSubmissionEntry[],

@@ -18,7 +18,7 @@ export const SectionHeader = (props: {
   const formattedVenueName = formatVenueName(section.venue);
 
   const uniqueEmails = new Set();
-  const confirmedVolunteerCount = entries.reduce((acc, cur) => {
+  const countEmailedVolunteers = entries.reduce((acc, cur) => {
     // don't re-count duplicate submissions as extra volunteers
     if (uniqueEmails.has(cur.email)) {
       return acc;
@@ -32,17 +32,24 @@ export const SectionHeader = (props: {
     return acc + (cur.plusOne ? 2 : 1);
   }, 0);
 
-  const canceled = entries.some((e) => e.canceled);
-  const emailed = entries.some((e) => e.emailed);
-  const acknowledged = entries.some((e) => e.acknowledged);
-  const awaiting = entries.some((e) => e.confirmed && !e.acknowledged);
+  const volunteersCanceled = entries.filter((e) => e.canceled);
+  const volunteersAcknowledged = entries.filter(
+    (e) => e.acknowledged && !e.canceled,
+  );
+  const volunteersAwaiting = entries.filter(
+    (e) => !e.canceled && e.confirmed && !e.acknowledged,
+  );
 
-  /*
-    TODO: add logic and display for following:
-    "Email Sent / Awaiting Responses"
-    "Volunteer(s) Confirmed / Acknowledged"
-    "Volunteer Canceled"
-  */
+  const displayCanceled = !!volunteersCanceled.length;
+  const displayAcknowledged = !!volunteersAcknowledged.length;
+  const displayAwaiting = !!volunteersAwaiting.length;
+
+  const countAcknowledgedVolunteers = volunteersAcknowledged.reduce(
+    (acc, cur) => {
+      return acc + (cur.plusOne ? 2 : 1);
+    },
+    0,
+  );
 
   return (
     <Flex
@@ -75,11 +82,11 @@ export const SectionHeader = (props: {
         </Flex>
         <Flex justifyContent={"space-between"}>
           <Text>{`Emailed:`} </Text>
-          <Text>{confirmedVolunteerCount} </Text>
+          <Text>{countEmailedVolunteers} </Text>
         </Flex>
         <Flex justifyContent={"space-between"}>
-          <Text>{`Confirmed:`} </Text>
-          <Text>{0} </Text>
+          <Text>{`Acknowledged:`} </Text>
+          <Text>{countAcknowledgedVolunteers} </Text>
         </Flex>
       </Flex>
 
@@ -90,32 +97,26 @@ export const SectionHeader = (props: {
         w={"20%"}
         ml={8}
       >
-        <>
-          {canceled && (
+        <div>
+          {displayCanceled && (
             <Flex alignItems={"center"}>
               <WarningIcon color="red.500" />
               <Text mx={1}>Canceled</Text>
             </Flex>
           )}
-          {acknowledged && (
+          {displayAcknowledged && (
             <Flex alignItems={"center"}>
               <CheckCircleIcon color="brand.icon.primary" />
               <Text mx={1}>Acknowledged</Text>
             </Flex>
           )}
-          {emailed && (
-            <Flex alignItems={"center"}>
-              <EmailIcon color="brand.icon.primary" />
-              <Text mx={1}>Email Sent</Text>
-            </Flex>
-          )}
-          {awaiting && (
+          {displayAwaiting && (
             <Flex alignItems={"center"}>
               <QuestionOutlineIcon color="brand.icon.primary" />
               <Text mx={1}>Awaiting</Text>
             </Flex>
           )}
-        </>
+        </div>
       </Flex>
     </Flex>
   );

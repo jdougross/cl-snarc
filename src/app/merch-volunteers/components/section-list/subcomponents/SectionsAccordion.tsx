@@ -49,7 +49,7 @@ export const SectionsAccordion = (props: {
 
         return (
           <AccordionItem
-            key={section.dateCity}
+            key={section.date}
             bg="brand.background.secondary"
             m={4}
           >

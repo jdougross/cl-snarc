@@ -22,14 +22,16 @@ Airtable.configure({
 
 const base = Airtable.base(baseId);
 
-export enum Fields {
+export enum AirTableFields {
   GUEST_LIST = "Guest List",
   DATE = "Date",
   MERCH_STATUS = "Merch Status",
   MERCH_HELP = "Merch Help",
+  LOCATION = "Location",
+  VENUE = "Venue",
 }
 
-export enum MerchStatus {
+export enum MerchStatusValue {
   PRIVATE = "PRIVATE",
   NO_MERCH = "NO MERCH",
   CONFIRMED = "CONFIRMED",
@@ -52,7 +54,7 @@ const parseListByNewLine = (list: string) => {
 };
 
 const parseGuestListFromRecord = (record: Record<FieldSet>) => {
-  const guestList = record.fields[Fields.GUEST_LIST];
+  const guestList = record.fields[AirTableFields.GUEST_LIST];
 
   if (typeof guestList === "string") {
     return parseListByNewLine(guestList);
@@ -68,7 +70,7 @@ const getRecordByShowDate = async (showDate: string) => {
       .select({
         // NOTE: entering a view param will prevent finding past / hidden dates
         // view: "advancing view",
-        filterByFormula: `DATESTR({${Fields.DATE}}) = '${formattedDate}'`,
+        filterByFormula: `DATESTR({${AirTableFields.DATE}}) = '${formattedDate}'`,
       })
       .firstPage();
 
@@ -116,7 +118,7 @@ export const addMerchSeller = async (entry: FormSubmissionEntry) => {
       const newLine = formatGuestListSellerLine(entry);
       const newList = [newLine].concat(filteredList).join("\n");
       const fieldsToUpdate = {
-        [Fields.GUEST_LIST]: newList,
+        [AirTableFields.GUEST_LIST]: newList,
       };
 
       const res = await base(baseName).update([
@@ -156,7 +158,7 @@ export const removeMerchSeller = async (entry: FormSubmissionEntry) => {
     } else {
       const newList = filteredList.join("\n");
       const fieldsToUpdate = {
-        [Fields.GUEST_LIST]: newList,
+        [AirTableFields.GUEST_LIST]: newList,
       };
 
       const res = await base(baseName).update([
