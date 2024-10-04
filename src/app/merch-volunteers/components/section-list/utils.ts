@@ -5,6 +5,12 @@ export const sortSectionsByDate = (a: string, b: string) => {
   return date1 - date2;
 };
 
+const isTodayOrLater = (d: string) => {
+  const roundedDate = new Date(new Date(d).toLocaleDateString());
+  const roundedNow = new Date(new Date().toLocaleDateString());
+  return roundedDate >= roundedNow;
+};
+
 export const shouldDisplaySection = (
   rules: Record<string, boolean>,
   section: Record<string, string>,
@@ -12,8 +18,7 @@ export const shouldDisplaySection = (
 ) => {
   const { hidePastDates } = rules;
 
-  const sectionDate = new Date(section.date);
-  if (hidePastDates && sectionDate.getTime() < new Date().getTime()) {
+  if (hidePastDates && !isTodayOrLater(section.date)) {
     return false;
   }
 
