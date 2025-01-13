@@ -1,8 +1,5 @@
 import { google } from "googleapis";
-import {
-  FormSubmissionEntry,
-  ValidSpreadsheetKeys,
-} from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry, ValidSpreadsheetKeys } from "@/app/types/types";
 import { findRangeOfCellByHeader, parseSheetsRowsWithHeaders } from "./utils";
 import { keyFile } from "../../../../keyFile";
 import { Logger as CustomLogger } from "@/app/logger";
@@ -174,12 +171,14 @@ export const markEntryEmailSent = async (entry: FormSubmissionEntry) => {
   try {
     const sheetsResponse = await getAllRows();
 
+    console.log("got rows");
     const range = findRangeOfCellByHeader({
       entry,
       header: ValidSpreadsheetKeys.EMAILED,
       valueRange: sheetsResponse.data,
     });
 
+    console.log("found range");
     const updateResponse = await sheets.spreadsheets.values.update({
       includeValuesInResponse: true,
       range,
@@ -196,7 +195,7 @@ export const markEntryEmailSent = async (entry: FormSubmissionEntry) => {
     return Promise.resolve(updateResponse.data);
   } catch (error) {
     logger.error(`FormSubmissions: error logging sending of email`, {
-      data: { date, name },
+      data: entry,
       error,
     });
     return Promise.reject(error);

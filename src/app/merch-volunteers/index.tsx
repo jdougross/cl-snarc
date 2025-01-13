@@ -9,11 +9,14 @@ import { formatSpreadsheetData } from "./utils";
 
 import * as React from "react";
 import { createContext, useEffect, useState } from "react";
-import { FormSubmissionEntry } from "./types";
+import { FormSubmissionEntry, TourContact } from "../types/types";
 import { EmailModal } from "./components/email-modal/EmailModal";
 
 export const FetchContext = createContext(() => {});
-export const ContactContext = createContext((e: FormSubmissionEntry) => {});
+export const VolunteerContactContext = createContext(
+  (e: FormSubmissionEntry) => {},
+);
+export const TourContactContext = createContext([] as TourContact[]);
 
 export const MerchVolunteers = () => {
   const [sectionListData, setSectionListData] = useState(
@@ -21,6 +24,7 @@ export const MerchVolunteers = () => {
   );
   const [isLoading, setLoading] = useState(true);
   const [modalEntry, setModalEntry] = useState({} as FormSubmissionEntry);
+  const [tourContacts, setTourContacts] = useState([] as TourContact[]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [windowWidth, setWindowWidth] = useState(0);
 
@@ -42,10 +46,20 @@ export const MerchVolunteers = () => {
     setLoading(false);
   };
 
+  const getTourContactData = async () => {
+    const tourContactResponse = await fetch("api/tourContacts");
+    const { data: tourContactData } = await tourContactResponse.json();
+    setTourContacts(tourContactData);
+  };
+
   useEffect(() => {
     getVolunteerData();
     setWindowWidth(window.innerWidth);
     window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
+  }, []);
+
+  useEffect(() => {
+    getTourContactData();
   }, []);
 
   const openEmailModal = (e: FormSubmissionEntry) => {
@@ -73,22 +87,28 @@ export const MerchVolunteers = () => {
 
   return (
     <FetchContext.Provider value={getVolunteerData}>
-      <ContactContext.Provider value={openEmailModal}>
-        <Flex justifyContent={"center"}>
-          <Flex
-            bg="brand.background"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            fontSize="md"
-            p={5}
-            {...sizeProps}
-          >
-            <SectionList sectionListData={sectionListData} />
-            <EmailModal entry={modalEntry} isOpen={isOpen} onClose={onClose} />
+      <TourContactContext.Provider value={tourContacts}>
+        <VolunteerContactContext.Provider value={openEmailModal}>
+          <Flex justifyContent={"center"}>
+            <Flex
+              bg="brand.background"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
+              fontSize="md"
+              p={5}
+              {...sizeProps}
+            >
+              <SectionList sectionListData={sectionListData} />
+              <EmailModal
+                entry={modalEntry}
+                isOpen={isOpen}
+                onClose={onClose}
+              />
+            </Flex>
           </Flex>
-        </Flex>
-      </ContactContext.Provider>
+        </VolunteerContactContext.Provider>
+      </TourContactContext.Provider>
     </FetchContext.Provider>
   );
 };

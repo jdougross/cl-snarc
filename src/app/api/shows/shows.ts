@@ -67,7 +67,7 @@ export const getAllShowDates = async () => {
       if (!DateField || !formattedDate) {
         console.log(
           "bad value for date format",
-          JSON.stringify(value.fields, null, 2),
+          JSON.stringify(value, null, 2),
         );
         return;
       }

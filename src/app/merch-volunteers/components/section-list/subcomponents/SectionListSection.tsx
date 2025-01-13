@@ -6,7 +6,7 @@ import {
   AccordionIcon,
 } from "@chakra-ui/react";
 import { SectionHeader } from "./SectionHeader";
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry } from "@/app/types/types";
 
 export const SectionListSection = (props: {
   section: Record<string, string>;

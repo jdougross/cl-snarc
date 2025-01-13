@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry } from "@/app/types/types";
 
 const jwtKey = process.env.CONFIRMATION_PRIVATE_KEY || "";
 

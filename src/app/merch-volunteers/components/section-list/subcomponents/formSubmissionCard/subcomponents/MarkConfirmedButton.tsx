@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, StyleProps, Text } from "@chakra-ui/react";
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry } from "@/app/types/types";
 import { useContext } from "react";
 import { FetchContext } from "@/app/merch-volunteers";
 

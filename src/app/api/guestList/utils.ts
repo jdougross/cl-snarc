@@ -1,4 +1,4 @@
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry } from "@/app/types/types";
 
 export const formatGuestListSellerLine = (entry: FormSubmissionEntry) => {
   const { city, date, email, name, plusOne, venue } = entry;

@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry } from "@/app/types/types";
 import { CommentsAndSkills } from "./subcomponents/CommentsAndSkills";
 import { VolunteerDetails } from "./subcomponents/VolunteerDetails";
 import { StatusAndActions } from "./subcomponents/StatusAndActions";

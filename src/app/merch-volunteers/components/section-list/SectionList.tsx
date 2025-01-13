@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Flex, Button } from "@chakra-ui/react";
 import { shouldDisplaySection, sortSectionsByDate } from "./utils";
 import { SectionsAccordion } from "./subcomponents/SectionsAccordion";
-import { FormSubmissionEntry } from "../../types";
+import { FormSubmissionEntry } from "../../../types/types";
 
 export interface SectionData {
   section: Record<string, string>;

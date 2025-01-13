@@ -1,4 +1,4 @@
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry } from "@/app/types/types";
 
 export const deriveFormat = (params: {
   entry: FormSubmissionEntry;

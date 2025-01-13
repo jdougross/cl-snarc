@@ -10,11 +10,15 @@ import {
   ModalFooter,
   ModalBody,
 } from "@chakra-ui/react";
-import { FormSubmissionEntry } from "../../types";
+import {
+  FormSubmissionEntry,
+  TourContact,
+  TourContactFields,
+} from "../../../types/types";
 import { sendConfirmationEmail } from "../../actions/sendConfiirmationEmail";
 import { InfoBox } from "./subcomponents/InfoBox";
-import { useContext } from "react";
-import { FetchContext } from "../..";
+import { useContext, useState } from "react";
+import { FetchContext, TourContactContext } from "../..";
 
 export const EmailModal = (props: {
   entry: FormSubmissionEntry;
@@ -24,12 +28,27 @@ export const EmailModal = (props: {
   const { entry, isOpen, onClose } = props;
   const toast = useToast();
   const theme = useTheme();
-  const refetch = useContext(FetchContext);
 
-  const handleClick = async () => {
-    await sendConfirmationEmail(entry, (args) => toast(args));
+  const [selectedContact, setSelectedContact] = useState({} as TourContact);
+
+  const refetch = useContext(FetchContext);
+  const tourContacts = useContext(TourContactContext);
+
+  const handleSubmit = async () => {
+    const data = { entry, tourContact: selectedContact };
+    await sendConfirmationEmail(data, (args) => toast(args));
+    resetContact();
     refetch();
     onClose();
+  };
+
+  const handleClose = () => {
+    resetContact();
+    onClose();
+  };
+
+  const resetContact = () => {
+    setSelectedContact({} as TourContact);
   };
 
   return (
@@ -67,13 +86,44 @@ export const EmailModal = (props: {
                         rows={[entry.name, entry.email, entry.phone]}
                         header={`Volunteer:`}
                       />
-                      <InfoBox rows={["TJ"]} header={`Tour Contact:`} />
+                      {/* <InfoBox rows={["TJ"]} header={`Tour Contact:`} /> */}
+                      <InfoBox header={"Tour Contact"}>
+                        {tourContacts.map((c, i) => (
+                          <Button
+                            key={JSON.stringify(c)}
+                            onClick={() => setSelectedContact(c)}
+                            width={150}
+                            fontSize={"small"}
+                            margin={1}
+                            padding={1}
+                            border={
+                              selectedContact["Name"] == c["Name"]
+                                ? "solid"
+                                : "none"
+                            }
+                          >
+                            {c[TourContactFields.NAME]}
+                          </Button>
+                        ))}
+                      </InfoBox>
                     </Flex>
-                    <Flex marginTop="1rem">
-                      <Button onClick={handleClick}>
+                    <Flex marginTop={10}>
+                      <Button
+                        m={2}
+                        p={5}
+                        fontSize={"medium"}
+                        onClick={handleSubmit}
+                      >
                         {"Send Confirmation"}
                       </Button>
-                      <Button onClick={onClose}>{"Cancel"}</Button>
+                      <Button
+                        m={2}
+                        p={5}
+                        fontSize={"medium"}
+                        onClick={handleClose}
+                      >
+                        {"Cancel"}
+                      </Button>
                     </Flex>
                   </Flex>
                 </>

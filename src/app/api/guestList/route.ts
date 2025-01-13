@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as GuestList from "./guestList";
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry } from "@/app/types/types";
 
 // TODO: better way to validate shape of object
 interface RequestWithFormSubmissionEntry extends Request {
@@ -8,7 +8,10 @@ interface RequestWithFormSubmissionEntry extends Request {
 }
 
 export async function GET(request: NextRequest) {
-  // TODO: get show date from request params
+  /*
+   * TODO: get show date from request params
+   * not pressing, route not currently utilized
+   */
   const showDate = "04/11/2024";
 
   try {
@@ -27,8 +30,8 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: Request) {
-  const entry = await request.json();
-  const { name, date } = entry;
+  const body = await request.json();
+  const { entry } = body;
 
   try {
     const result = await GuestList.addMerchSeller(entry);
@@ -45,8 +48,8 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const entry = await request.json();
-  const { name, date } = entry;
+  const body = await request.json();
+  const { entry } = body;
 
   try {
     const result = await GuestList.removeMerchSeller(entry);

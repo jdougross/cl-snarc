@@ -37,6 +37,17 @@ export interface FormSubmissionEntry {
   emailed?: string;
 }
 
+export enum TourContactFields {
+  NAME = "Name",
+  FULLNAME = "Full Name",
+  EMAIL = "Email",
+  PHONE = "Phone",
+  POSITION = "Position (Phrase)",
+  PRONOUN = "Indirect Pronoun",
+}
+
+export type TourContact = Record<TourContactFields, string>;
+
 /*
 
 export enum ShowCoverageStatus {
