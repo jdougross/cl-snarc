@@ -4,7 +4,9 @@ import { NextResponse } from "next/server";
 // Manually update the "confirmed?" field in storage
 export async function PUT(request: Request) {
   // TODO: sanitize input here or on FE?
-  const entry = await request.json();
+  const body = await request.json();
+  const { entry } = body;
+
   try {
     const data = await FormSubmissions.updateEntryConfirmed(entry);
     return NextResponse.json(

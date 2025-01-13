@@ -1,6 +1,6 @@
 // "use client"
 
-import { FormSubmissionEntry, ValidSpreadsheetKeys } from "./types";
+import { FormSubmissionEntry, ValidSpreadsheetKeys } from "../types/types";
 
 interface SectionListData {
   section: Record<string, string>;

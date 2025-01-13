@@ -1,4 +1,4 @@
-import { FormSubmissionEntry } from "../../types";
+import { FormSubmissionEntry } from "../../../types/types";
 
 interface toastParams {
   entry: FormSubmissionEntry;

@@ -1,9 +1,9 @@
 "use client";
 
 import { Button, StyleProps, Text } from "@chakra-ui/react";
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry } from "@/app/types/types";
 import { useContext } from "react";
-import { ContactContext } from "@/app/merch-volunteers";
+import { VolunteerContactContext } from "@/app/merch-volunteers";
 
 export const EmailConfirmationButton = (props: {
   active: boolean;
@@ -11,7 +11,7 @@ export const EmailConfirmationButton = (props: {
   style?: StyleProps;
 }) => {
   const { active, entry, style } = props;
-  const setModalEntry = useContext(ContactContext);
+  const setModalEntry = useContext(VolunteerContactContext);
 
   const handleClick = () => {
     active && setModalEntry(entry);

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, StyleProps, Text, useToast } from "@chakra-ui/react";
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry } from "@/app/types/types";
 import { cancelVolunteer } from "../../../../../actions/cancelVolunteer";
 import { useContext } from "react";
 import { FetchContext } from "@/app/merch-volunteers";

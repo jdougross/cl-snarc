@@ -1,4 +1,4 @@
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry } from "@/app/types/types";
 import { Box, Text } from "@chakra-ui/react";
 
 export const VolunteerDetails = (props: { entry: FormSubmissionEntry }) => {

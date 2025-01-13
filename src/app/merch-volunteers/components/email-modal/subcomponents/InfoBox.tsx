@@ -1,11 +1,13 @@
 import { Flex, Text, useTheme } from "@chakra-ui/react";
+import { ReactNode } from "react";
 
 interface InfoBoxProps {
-  rows: string[];
+  rows?: string[];
   header: string;
+  children?: ReactNode;
 }
 
-export const InfoBox = ({ rows, header }: InfoBoxProps) => {
+export const InfoBox = ({ rows, header, children }: InfoBoxProps) => {
   const theme = useTheme();
 
   const boxProps = {
@@ -23,9 +25,8 @@ export const InfoBox = ({ rows, header }: InfoBoxProps) => {
       <Text py="2" fontWeight="bold">
         {header}
       </Text>
-      {rows.map((r) => (
-        <Text key={r}>{r}</Text>
-      ))}
+      {rows?.map((r) => <Text key={r}>{r}</Text>)}
+      {children}
     </Flex>
   );
 };

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import Airtable, { FieldSet, Record } from "airtable";
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry } from "@/app/types/types";
 import { formatGuestListSellerLine } from "./utils";
 import { Logger as CustomLogger } from "@/app/logger";
 

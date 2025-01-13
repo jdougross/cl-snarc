@@ -1,17 +1,27 @@
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import {
+  FormSubmissionEntry,
+  TourContact,
+  TourContactFields,
+} from "@/app/types/types";
 import { generateTokenUrl } from "./generateTokenUrl";
-import { getTourContactInfo } from "./getTourContactInfo";
+import { getVolunteerDetailsUrlParams } from "./getTourContactInfo";
 import { generateEmailText } from "./emailText";
 import * as styles from "./styles";
 
-const ConfirmationEmail = ({ entry }: { entry: FormSubmissionEntry }) => {
-  const info = getTourContactInfo();
-  const webhookUrl = generateTokenUrl(entry);
-  const email = generateEmailText({ info, entry });
+interface ConfirmationEmailProps {
+  entry: FormSubmissionEntry;
+  tourContact: TourContact;
+}
 
-  /**
-   * TODO: email address as a mailto link
-   */
+const ConfirmationEmail = (props: ConfirmationEmailProps) => {
+  const { entry, tourContact } = props;
+
+  const { volunteerDetailsUrl, volunteerDetailsDisplayUrl } =
+    getVolunteerDetailsUrlParams();
+  const tourContactEmail = tourContact[TourContactFields.EMAIL];
+  const webhookUrl = generateTokenUrl(entry);
+  const email = generateEmailText({ entry, tourContact });
+  const mailtoLlink = `mailto:${tourContactEmail}?subject=Carbon Leaf Merch Volunteer ${entry.date}&cc=carbonleafvolunteers@gmail.com`;
 
   return (
     <div style={styles.backgroundContainer}>
@@ -34,15 +44,15 @@ const ConfirmationEmail = ({ entry }: { entry: FormSubmissionEntry }) => {
 
           <p>
             {email.timingLine}
-            <a href={info.volunteerDetailsUrl} style={styles.link}>
-              {info.volunteerDetailsDisplayUrl}
+            <a href={volunteerDetailsUrl} style={styles.link}>
+              {volunteerDetailsDisplayUrl}
             </a>
             {`.`}
           </p>
 
           <p>
             {email.contactLine}
-            <a>{info.tourContactEmail}</a>
+            <a href={mailtoLlink}>{tourContactEmail}</a>
             {`.`}
           </p>
           <p>{email.questionsLine}</p>
@@ -53,10 +63,18 @@ const ConfirmationEmail = ({ entry }: { entry: FormSubmissionEntry }) => {
   );
 };
 
-export const generateConfirmationEmail = async (entry: FormSubmissionEntry) => {
+interface GenerateConfirmationEmailParams {
+  entry: FormSubmissionEntry;
+  tourContact: TourContact;
+}
+export const generateConfirmationEmail = async (
+  params: GenerateConfirmationEmailParams,
+) => {
+  const { entry, tourContact } = params;
+
   const ReactDOMServer = (await import("react-dom/server")).default;
   const html = ReactDOMServer.renderToString(
-    <ConfirmationEmail entry={entry} />,
+    <ConfirmationEmail entry={entry} tourContact={tourContact} />,
   );
   const subject = `CONFIRMED! Thank you for volunteering with Carbon Leaf - ${entry.date}`;
 

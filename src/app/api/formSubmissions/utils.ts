@@ -1,7 +1,4 @@
-import {
-  FormSubmissionEntry,
-  ValidSpreadsheetKeys,
-} from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry, ValidSpreadsheetKeys } from "@/app/types/types";
 import { sheets_v4 } from "googleapis";
 
 export const parseSheetsRowsWithHeaders = ({

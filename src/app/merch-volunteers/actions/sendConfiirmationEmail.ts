@@ -1,12 +1,19 @@
-import { FormSubmissionEntry } from "../types";
+import { FormSubmissionEntry, TourContact } from "../../types/types";
 import { toasts } from "./toasts/toasts";
 
 export const sendConfirmationEmail = async (
-  entry: FormSubmissionEntry,
+  data: {
+    entry: FormSubmissionEntry;
+    tourContact?: TourContact;
+  },
   toast: ({}: Record<string, string | number>) => void,
 ) => {
+  const { entry, tourContact } = data;
   // confirmed will always be TRUE on this path
-  const body = JSON.stringify({ ...entry, confirmed: true });
+  const body = JSON.stringify({
+    entry: { ...entry, confirmed: true },
+    tourContact,
+  });
 
   // TODO: this should produce error toasts, it does not
 

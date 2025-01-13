@@ -2,7 +2,9 @@ import * as FormSubmissions from "@/app/api/formSubmissions/formSubmissions";
 import { NextResponse } from "next/server";
 
 export async function PUT(request: Request) {
-  const entry = await request.json();
+  const body = await request.json();
+  const { entry } = body;
+
   try {
     const data = await FormSubmissions.markEntryEmailSent(entry);
 

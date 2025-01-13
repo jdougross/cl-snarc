@@ -1,4 +1,4 @@
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry } from "@/app/types/types";
 import { toasts } from "./toasts/toasts";
 
 export const cancelVolunteer = async (

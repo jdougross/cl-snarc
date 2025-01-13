@@ -1,4 +1,4 @@
-import { FormSubmissionEntry } from "@/app/merch-volunteers/types";
+import { FormSubmissionEntry } from "@/app/types/types";
 import {
   CheckCircleIcon,
   EmailIcon,
